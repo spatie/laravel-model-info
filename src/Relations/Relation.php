@@ -11,7 +11,6 @@ class Relation implements Arrayable
         public string $type,
         public string $related,
     ) {
-
     }
 
     /**

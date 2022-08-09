@@ -28,8 +28,7 @@ class RelationFinder
     ];
 
     /**
-     * @param class-string<Model>|Model $model
-     *
+     * @param  class-string<Model>|Model  $model
      * @return Collection<Attribute>
      */
     public static function forModel(string|Model $model): Collection
@@ -42,8 +41,7 @@ class RelationFinder
     }
 
     /**
-     * @param Model $model
-     *
+     * @param  Model  $model
      * @return Collection<Relation>
      */
     public function relations(Model $model): Collection
