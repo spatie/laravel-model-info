@@ -78,7 +78,7 @@ class ModelInfo
     {
         $properties = get_object_vars($this);
         $properties['relations'] = $properties['relations']->toArray();
-        $properties['attributes'] =$properties['attributes']->toArray();
+        $properties['attributes'] = $properties['attributes']->toArray();
 
         return $properties;
     }
