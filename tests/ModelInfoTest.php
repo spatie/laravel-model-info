@@ -25,8 +25,8 @@ it('can get meta information about all models', function () {
     expect($modelInfo->first())->toBeInstanceOf(ModelInfo::class);
 });
 
-it('can get extra info from a model', function() {
-   $modelInfo = ModelInfo::forModel(ExtraModelInfoModel::class);
+it('can get extra info from a model', function () {
+    $modelInfo = ModelInfo::forModel(ExtraModelInfoModel::class);
 
-   expect($modelInfo->extra)->toBe('extra info');
+    expect($modelInfo->extra)->toBe('extra info');
 });
