@@ -1,5 +1,5 @@
 class: Spatie\ModelMeta\Tests\TestSupport\Models\RelationTestModel
-fileName: /Users/freek/dev/code/laravel-model-meta/tests/TestSupport/Models/RelationTestModel.php
+fileName: /TestSupport/Models/RelationTestModel.php
 connectionName: testing
 tableName: relation_test_models
 relations:
