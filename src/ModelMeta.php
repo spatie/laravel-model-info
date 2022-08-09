@@ -1,12 +1,12 @@
 <?php
 
-namespace Spatie\ModelReflection;
+namespace Spatie\ModelMeta;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Spatie\ModelReflection\Attributes\Attribute;
-use Spatie\ModelReflection\Attributes\AttributeFinder;
-use Spatie\ModelReflection\Relations\RelationFinder;
+use Spatie\ModelMeta\Attributes\Attribute;
+use Spatie\ModelMeta\Attributes\AttributeFinder;
+use Spatie\ModelMeta\Relations\RelationFinder;
 
 class ModelMeta
 {

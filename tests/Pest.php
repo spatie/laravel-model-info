@@ -1,5 +1,5 @@
 <?php
 
-use Spatie\ModelReflection\Tests\TestSupport\TestCase;
+use Spatie\ModelMeta\Tests\TestSupport\TestCase;
 
 uses(TestCase::class)->in(__DIR__);

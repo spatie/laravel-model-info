@@ -1,16 +1,16 @@
 <?php
 
-namespace Spatie\ModelReflection;
+namespace Spatie\ModelMeta;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class ModelReflectionServiceProvider extends PackageServiceProvider
+class ModelMetaServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
         $package
-            ->name('laravel-model-reflection')
+            ->name('laravel-model-meta')
             ->hasConfigFile();
     }
 }

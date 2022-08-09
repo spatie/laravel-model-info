@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\ModelReflection\Tests\TestSupport\Models;
+namespace Spatie\ModelMeta\Tests\TestSupport\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

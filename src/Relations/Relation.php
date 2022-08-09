@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\ModelReflection\Relations;
+namespace Spatie\ModelMeta\Relations;
 
 use Illuminate\Contracts\Support\Arrayable;
 

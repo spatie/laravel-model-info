@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Support\Collection;
-use Spatie\ModelReflection\Attributes\AttributeFinder;
-use Spatie\ModelReflection\Relations\RelationFinder;
-use Spatie\ModelReflection\Tests\TestSupport\Models\RelationTestModel;
-use Spatie\ModelReflection\Tests\TestSupport\Models\TestModel;
+use Spatie\ModelMeta\Attributes\AttributeFinder;
+use Spatie\ModelMeta\Relations\RelationFinder;
+use Spatie\ModelMeta\Tests\TestSupport\Models\RelationTestModel;
+use Spatie\ModelMeta\Tests\TestSupport\Models\TestModel;
 use function Spatie\Snapshots\assertMatchesSnapshot;
 
 it('can find the relations on a model', function() {

@@ -1,3 +1,3 @@
 # Changelog
 
-All notable changes to `laravel-model-reflection` will be documented in this file.
+All notable changes to `laravel-model-meta` will be documented in this file.

@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\ModelReflection\Attributes;
+namespace Spatie\ModelMeta\Attributes;
 
 use BackedEnum;
 use Doctrine\DBAL\Schema\Column;

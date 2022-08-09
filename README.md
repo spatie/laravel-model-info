@@ -3,16 +3,16 @@
 
 # Get information about the models in your Laravel app
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-model-reflection.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-model-reflection)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/spatie/laravel-model-reflection/run-tests?label=tests)](https://github.com/spatie/laravel-model-reflection/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/spatie/laravel-model-reflection/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/spatie/laravel-model-reflection/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-model-reflection.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-model-reflection)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-model-meta.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-model-meta)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/spatie/laravel-model-meta/run-tests?label=tests)](https://github.com/spatie/laravel-model-meta/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/spatie/laravel-model-meta/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/spatie/laravel-model-meta/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-model-meta.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-model-meta)
 
 This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
 
 ## Support us
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/laravel-model-reflection.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/laravel-model-reflection)
+[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/laravel-model-meta.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/laravel-model-meta)
 
 We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
 
@@ -23,20 +23,20 @@ We highly appreciate you sending us a postcard from your hometown, mentioning wh
 You can install the package via composer:
 
 ```bash
-composer require spatie/laravel-model-reflection
+composer require spatie/laravel-model-meta
 ```
 
 You can publish and run the migrations with:
 
 ```bash
-php artisan vendor:publish --tag="laravel-model-reflection-migrations"
+php artisan vendor:publish --tag="laravel-model-meta-migrations"
 php artisan migrate
 ```
 
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag="laravel-model-reflection-config"
+php artisan vendor:publish --tag="laravel-model-meta-config"
 ```
 
 This is the contents of the published config file:
@@ -49,14 +49,14 @@ return [
 Optionally, you can publish the views using
 
 ```bash
-php artisan vendor:publish --tag="laravel-model-reflection-views"
+php artisan vendor:publish --tag="laravel-model-meta-views"
 ```
 
 ## Usage
 
 ```php
-$modelReflection = new Spatie\ModelReflection();
-echo $modelReflection->echoPhrase('Hello, Spatie!');
+$ModelMeta = new Spatie\ModelMeta();
+echo $ModelMeta->echoPhrase('Hello, Spatie!');
 ```
 
 ## Testing

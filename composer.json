@@ -1,12 +1,12 @@
 {
-    "name": "spatie/laravel-model-reflection",
+    "name": "spatie/laravel-model-meta",
     "description": "Get information about the models in your Laravel app",
     "keywords": [
         "spatie",
         "laravel",
-        "laravel-model-reflection"
+        "laravel-model-meta"
     ],
-    "homepage": "https://github.com/spatie/laravel-model-reflection",
+    "homepage": "https://github.com/spatie/laravel-model-meta",
     "license": "MIT",
     "authors": [
         {
@@ -33,13 +33,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Spatie\\ModelReflection\\": "src",
-            "Spatie\\ModelReflection\\Database\\Factories\\": "database/factories"
+            "Spatie\\ModelMeta\\": "src",
+            "Spatie\\ModelMeta\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Spatie\\ModelReflection\\Tests\\": "tests"
+            "Spatie\\ModelMeta\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -54,10 +54,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Spatie\\ModelReflection\\ModelReflectionServiceProvider"
+                "Spatie\\ModelMeta\\ModelMetaServiceProvider"
             ],
             "aliases": {
-                "ModelReflection": "Spatie\\ModelReflection\\Facades\\ModelReflection"
+                "ModelMeta": "Spatie\\ModelMeta\\Facades\\ModelMeta"
             }
         }
     },

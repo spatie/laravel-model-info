@@ -1,12 +1,12 @@
 <?php
 
-namespace Spatie\ModelReflection\Tests\TestSupport;
+namespace Spatie\ModelMeta\Tests\TestSupport;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Spatie\ModelReflection\ModelReflectionServiceProvider;
+use Spatie\ModelMeta\ModelMetaServiceProvider;
 use Spatie\Snapshots\MatchesSnapshots;
 
 class TestCase extends Orchestra
@@ -18,14 +18,14 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Spatie\\ModelReflection\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'Spatie\\ModelMeta\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 
     protected function getPackageProviders($app)
     {
         return [
-            ModelReflectionServiceProvider::class,
+            ModelMetaServiceProvider::class,
         ];
     }
 
