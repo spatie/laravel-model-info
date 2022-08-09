@@ -48,7 +48,7 @@ class TestCase extends Orchestra
 
     public function getTestSupportDirectory(string $suffix = ''): string
     {
-        return __DIR__ . $suffix;
+        return __DIR__.$suffix;
     }
 
     public function getTestDirectory(): string

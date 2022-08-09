@@ -7,9 +7,9 @@ use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use ReflectionClass;
 use SplFileInfo;
-use Illuminate\Support\Str;
 
 class ModelFinder
 {
@@ -22,7 +22,7 @@ class ModelFinder
         $directory ??= app_path();
         $basePath ??= $basePath;
 
-        $globPattern = realpath($directory) . '/**/*.php';
+        $globPattern = realpath($directory).'/**/*.php';
 
         return collect(File::glob($globPattern))
             ->map(fn (string $class) => new SplFileInfo($class))
@@ -52,6 +52,6 @@ class ModelFinder
                 [DIRECTORY_SEPARATOR, 'App\\'],
                 ['\\', app()->getNamespace()],
             )
-            ->prepend($baseNamespace . "\\");
+            ->prepend($baseNamespace.'\\');
     }
 }

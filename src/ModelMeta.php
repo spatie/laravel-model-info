@@ -42,10 +42,9 @@ class ModelMeta
 
     public function toArray(): array
     {
-        $properties =  get_object_vars($this);
+        $properties = get_object_vars($this);
         $properties['relations'] = $this->itemsToArray($properties['relations']);
         $properties['attributes'] = $this->itemsToArray($properties['attributes']);
-
 
         return $properties;
     }
