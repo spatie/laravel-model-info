@@ -163,11 +163,14 @@ class AttributeFinder
             ->mapWithKeys(function (ReflectionMethod $method) use ($model) {
                 if (preg_match('/^get(.*)Attribute$/', $method->getName(), $matches) === 1) {
                     return [Str::snake($matches[1]) => 'accessor'];
-                } elseif ($model->hasAttributeMutator($method->getName())) {
-                    return [Str::snake($method->getName()) => 'attribute'];
-                } else {
-                    return [];
                 }
+
+                if ($model->hasAttributeMutator($method->getName())) {
+                    return [Str::snake($method->getName()) => 'attribute'];
+                }
+
+                return [];
+
             })
             ->reject(fn ($cast, $name) => collect($columns)->has($name))
             ->map(fn ($cast, $name) => [

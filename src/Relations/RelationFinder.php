@@ -56,6 +56,7 @@ class RelationFinder
                 $file = new SplFileObject($method->getFileName());
                 $file->seek($method->getStartLine() - 1);
                 $code = '';
+
                 while ($file->key() < $method->getEndLine()) {
                     $code .= $file->current();
                     $file->next();
