@@ -68,10 +68,10 @@ class AttributeFinder
         };
 
         if ($details) {
-            return sprintf('%s(%s)%s', $name, $details, $unsigned);
+            return "{$name}({$details}){$unsigned}";
         }
 
-        return sprintf('%s%s', $name, $unsigned);
+        return "{$name}{$unsigned}";
     }
 
     protected function getColumnDefault(Column $column, Model $model): mixed
