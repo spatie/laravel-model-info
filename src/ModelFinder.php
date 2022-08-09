@@ -36,7 +36,7 @@ class ModelFinder
             })
             ->filter()
             ->filter(fn (ReflectionClass $class) => $class->isSubclassOf(Model::class))
-            ->map(fn(ReflectionClass $reflectionClass) => $reflectionClass->getName());
+            ->map(fn (ReflectionClass $reflectionClass) => $reflectionClass->getName());
     }
 
     protected static function fullQualifiedClassNameFromFile(
