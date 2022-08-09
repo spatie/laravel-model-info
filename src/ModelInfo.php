@@ -94,14 +94,14 @@ class ModelInfo
     public function attribute(string $name): ?Attribute
     {
         return $this->attributes->first(
-            fn(Attribute $attribute) => $attribute->name === $name
+            fn (Attribute $attribute) => $attribute->name === $name
         );
     }
 
     public function relation(string $name): ?Relation
     {
         return $this->relations->first(
-            fn(Relation $relation) => $relation->name === $name
+            fn (Relation $relation) => $relation->name === $name
         );
     }
 }
