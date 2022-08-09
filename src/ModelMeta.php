@@ -11,11 +11,15 @@ use Spatie\ModelMeta\Relations\RelationFinder;
 class ModelMeta
 {
     /**
-     * @param  class-string<Model>|Model  $model
+     * @param  class-string<Model>|Model|ReflectionClass  $model
      * @return self
      */
-    public static function forModel(string|Model $model): self
+    public static function forModel(string|Model|ReflectionClass $model): self
     {
+        if ($model instanceof ReflectionClass) {
+            $model = $model->getName();
+        }
+
         if (is_string($model)) {
             $model = new $model;
         }
