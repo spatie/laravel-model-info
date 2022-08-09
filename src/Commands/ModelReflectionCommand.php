@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Spatie\ModelReflection\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class ModelReflectionCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-model-reflection';
 
     public $description = 'My command';
 
