@@ -78,6 +78,7 @@ class RelationFinder
                     Str::afterLast(get_class($relation), '\\'),
                     get_class($relation->getRelated()),
                 );
-            });
+            })
+            ->filter();
     }
 }
