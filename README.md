@@ -17,30 +17,30 @@ $ModelInfo = ModelInfo::forModel(YourModel::class);
 
 $model->fileName; // returns the filename that contains your model
 $model->tableName; // returns the name of the table your models are stored in
-$model->attributes // returns a collection of `Attribute` objects
-$model->relations // returns a collection of `Relation` objects
+$model->attributes; // returns a collection of `Attribute` objects
+$model->relations; // returns a collection of `Relation` objects
 ```
 
 Here's how you can get information about the attributes:
 
 ```php
-$model->attributes->first()->name // returns the name of the first attribute
-$model->attributes->first()->type // returns the type of the first attribute (string, integer, ...)
+$model->attributes->first()->name; // returns the name of the first attribute
+$model->attributes->first()->type; // returns the type of the first attribute (string, integer, ...)
 ```
 
 Here's how you can get information about the relations
 
 ```php
 // returns the name of the first relation, eg. `author`
-$model->attributes->first()->name 
+$model->attributes->first()->name;
 
 // returns the type of the
 // first relation, eg. `BelongsTo`
-$model->attributes->first()->type 
+$model->attributes->first()->type;
 
 // returns the related model of the
 // first relation, eg. `App\Models\User`
-$model->attributes->first()->related 
+$model->attributes->first()->related; 
 ```
 
 Additionally, the package can also discover all the models in your application.
@@ -76,8 +76,8 @@ $ModelInfo = ModelInfo::forModel(YourModel::class);
 
 $model->fileName; // returns the filename that contains your model
 $model->tableName; // returns the name of the table your models are stored in
-$model->attributes // returns a collection of `Attribute` objects
-$model->relations // returns a collection of `Relation` objects
+$model->attributes; // returns a collection of `Attribute` objects
+$model->relations; // returns a collection of `Relation` objects
 ```
 
 ### Attributes
