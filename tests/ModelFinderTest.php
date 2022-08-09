@@ -1,16 +1,16 @@
 <?php
 
-namespace Spatie\ModelMeta\Tests;
+namespace Spatie\ModelInfo\Tests;
 
 use ReflectionClass;
-use Spatie\ModelMeta\ModelFinder;
-use Spatie\ModelMeta\Tests\TestSupport\Models\RelationTestModel;
+use Spatie\ModelInfo\ModelFinder;
+use Spatie\ModelInfo\Tests\TestSupport\Models\RelationTestModel;
 
 it('can discover all models in a directory', function () {
     $models = ModelFinder::all(
         $this->getTestSupportDirectory(),
         $this->getTestDirectory(),
-        "Spatie\ModelMeta\Tests",
+        "Spatie\ModelInfo\Tests",
     );
 
     expect($models)->toHaveCount(2);

@@ -1,8 +1,8 @@
 <?php
 
-use Spatie\ModelMeta\Relations\RelationFinder;
-use Spatie\ModelMeta\Tests\TestSupport\Models\RelationTestModel;
-use Spatie\ModelMeta\Tests\TestSupport\Models\TestModel;
+use Spatie\ModelInfo\Relations\RelationFinder;
+use Spatie\ModelInfo\Tests\TestSupport\Models\RelationTestModel;
+use Spatie\ModelInfo\Tests\TestSupport\Models\TestModel;
 
 it('can find the relations on a model', function () {
     $relations = RelationFinder::forModel(new RelationTestModel());

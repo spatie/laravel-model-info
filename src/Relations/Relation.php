@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\ModelMeta\Relations;
+namespace Spatie\ModelInfo\Relations;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Traits\Macroable;

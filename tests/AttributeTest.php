@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Collection;
-use Spatie\ModelMeta\Attributes\AttributeFinder;
-use Spatie\ModelMeta\Tests\TestSupport\Models\TestModel;
+use Spatie\ModelInfo\Attributes\AttributeFinder;
+use Spatie\ModelInfo\Tests\TestSupport\Models\TestModel;
 use function Spatie\Snapshots\assertMatchesSnapshot;
 
 it('can get the attributes of a model', function () {

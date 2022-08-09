@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\ModelMeta;
+namespace Spatie\ModelInfo;
 
 use Error;
 use Exception;

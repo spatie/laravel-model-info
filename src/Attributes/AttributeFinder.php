@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\ModelMeta\Attributes;
+namespace Spatie\ModelInfo\Attributes;
 
 use BackedEnum;
 use Doctrine\DBAL\Schema\Column;
@@ -17,6 +17,7 @@ class AttributeFinder
 {
     /**
      * @param  class-string<Model>|Model  $model
+     *
      * @return \Illuminate\Support\Collection<Attribute>
      */
     public static function forModel(string|Model $model): Collection
@@ -30,6 +31,7 @@ class AttributeFinder
 
     /**
      * @param  Model  $model
+     *
      * @return \Illuminate\Support\Collection<Attribute>
      */
     protected function attributes(Model $model): Collection

@@ -1,20 +1,20 @@
 <?php
 
-namespace Spatie\ModelMeta;
+namespace Spatie\ModelInfo;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use ReflectionClass;
-use Spatie\ModelMeta\Attributes\AttributeFinder;
-use Spatie\ModelMeta\Relations\RelationFinder;
+use Spatie\ModelInfo\Attributes\AttributeFinder;
+use Spatie\ModelInfo\Relations\RelationFinder;
 
-class ModelMeta
+class ModelInfo
 {
     /**
      * @param  string|null  $directory
      * @param  string|null  $basePath
      * @param  string|null  $baseNamespace
-     * @return Collection<ModelMeta>
+     * @return Collection<ModelInfo>
      */
     public static function forAllModels(
         string $directory = null,

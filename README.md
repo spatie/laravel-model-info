@@ -3,17 +3,17 @@
 
 # Get information about the models in your Laravel app
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-model-meta.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-model-meta)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/spatie/laravel-model-meta/run-tests?label=tests)](https://github.com/spatie/laravel-model-meta/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/spatie/laravel-model-meta/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/spatie/laravel-model-meta/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-model-meta.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-model-meta)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-model-info.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-model-info)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/spatie/laravel-model-info/run-tests?label=tests)](https://github.com/spatie/laravel-model-info/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/spatie/laravel-model-info/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/spatie/laravel-model-info/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-model-info.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-model-info)
 
 Using this package you can determine which attributes and relations your model classes have.
 
 ```php
-use Spatie\ModelMeta\ModelMeta;
+use Spatie\ModelInfo\ModelInfo;
 
-$modelMeta = ModelMeta::forModel(YourModel::class);
+$ModelInfo = ModelInfo::forModel(YourModel::class);
 
 $model->fileName; // returns the filename that contains your model
 $model->tableName; // returns the name of the table your models are stored in
@@ -36,7 +36,7 @@ $models = ModelFinder::all(); // returns a `Illuminate\Support\Collection` conta
 
 ## Support us
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/laravel-model-meta.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/laravel-model-meta)
+[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/laravel-model-info.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/laravel-model-info)
 
 We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
 
@@ -47,7 +47,7 @@ We highly appreciate you sending us a postcard from your hometown, mentioning wh
 You can install the package via composer:
 
 ```bash
-composer require spatie/laravel-model-meta
+composer require spatie/laravel-model-info
 ```
 
 ## Usage
@@ -55,9 +55,9 @@ composer require spatie/laravel-model-meta
 You can get information about a model by calling `forModel`:
 
 ```php
-use Spatie\ModelMeta\ModelMeta;
+use Spatie\ModelInfo\ModelInfo;
 
-$modelMeta = ModelMeta::forModel(YourModel::class);
+$ModelInfo = ModelInfo::forModel(YourModel::class);
 
 $model->fileName; // returns the filename that contains your model
 $model->tableName; // returns the name of the table your models are stored in
@@ -67,7 +67,7 @@ $model->relations // returns a collection of `Relation` objects
 
 ### Attributes
 
-A `Spatie\ModelMeta\Attributes\Attribute` object has these properties:
+A `Spatie\ModelInfo\Attributes\Attribute` object has these properties:
 
 - `name`
 - `type`
@@ -82,7 +82,7 @@ A `Spatie\ModelMeta\Attributes\Attribute` object has these properties:
 
 ### Relationships
 
-A `Spatie\ModelMeta\Relations\Relation` object has these properties:
+A `Spatie\ModelInfo\Relations\Relation` object has these properties:
 
 - `name`
 - `type`
@@ -91,7 +91,7 @@ A `Spatie\ModelMeta\Relations\Relation` object has these properties:
 ## Discovering all models in your application
 
 ```php
-use Spatie\ModelMeta\ModelFinder;
+use Spatie\ModelInfo\ModelFinder;
 
 // returns a `Illuminate\Support\Collection` containing
 // all the class names of all your models.

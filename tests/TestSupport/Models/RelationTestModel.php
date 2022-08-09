@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\ModelMeta\Tests\TestSupport\Models;
+namespace Spatie\ModelInfo\Tests\TestSupport\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User;

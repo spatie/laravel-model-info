@@ -1,13 +1,13 @@
 <?php
 
-namespace Spatie\ModelMeta\Relations;
+namespace Spatie\ModelInfo\Relations;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation as IlluminateRelation;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use ReflectionMethod;
-use Spatie\ModelMeta\Attributes\Attribute;
+use Spatie\ModelInfo\Attributes\Attribute;
 use SplFileObject;
 
 class RelationFinder
