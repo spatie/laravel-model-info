@@ -77,7 +77,7 @@ $ModelInfo = ModelInfo::forModel(YourModel::class);
 $model->fileName; // returns the filename that contains your model
 $model->tableName; // returns the name of the table your models are stored in
 $model->attributes; // returns a collection of `Attribute` objects
-$model->relations; // returns a collection of `Relation` objects
+$model->relations;`` // returns a collection of `Relation` objects
 ```
 
 ### Attributes
