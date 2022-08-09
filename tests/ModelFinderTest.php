@@ -7,9 +7,7 @@ use Spatie\ModelMeta\ModelFinder;
 use Spatie\ModelMeta\Tests\TestSupport\Models\RelationTestModel;
 
 it('can discover all models in a directory', function () {
-    $modelFinder = new ModelFinder();
-
-    $models = $modelFinder->getModelClasses(
+    $models = ModelFinder::all(
         $this->getTestSupportDirectory(),
         $this->getTestDirectory(),
         "Spatie\ModelMeta\Tests",
@@ -20,6 +18,5 @@ it('can discover all models in a directory', function () {
     /** @var ReflectionClass $firstModel */
     $firstModel = $models->first();
 
-    expect($firstModel)->toBeInstanceOf(ReflectionClass::class);
-    expect($firstModel->getName())->toBe(RelationTestModel::class);
+    expect($firstModel)->toBe(RelationTestModel::class);
 });

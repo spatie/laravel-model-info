@@ -23,9 +23,8 @@ class ModelMeta
         string $baseNamespace = null
     ): Collection {
 
-        return (new ModelFinder())
-            ->getModelClasses($directory, $basePath, $baseNamespace)
-            ->map(function(ReflectionClass $model) {
+        return ModelFinder::all($directory, $basePath, $baseNamespace)
+            ->map(function(string $model) {
                 return self::forModel($model);
             });
     }

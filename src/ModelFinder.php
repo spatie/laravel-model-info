@@ -13,8 +13,8 @@ use SplFileInfo;
 
 class ModelFinder
 {
-    /** @return Collection<ReflectionClass> */
-    public function getModelClasses(
+    /** @return Collection<class-string<Model>> */
+    public static function all(
         string $directory = null,
         string $basePath = null,
         string $baseNamespace = null,
@@ -26,7 +26,7 @@ class ModelFinder
 
         return collect(File::glob($globPattern))
             ->map(fn (string $class) => new SplFileInfo($class))
-            ->map(fn (SplFileInfo $file) => $this->fullQualifiedClassNameFromFile($file, $basePath, $baseNamespace))
+            ->map(fn (SplFileInfo $file) => self::fullQualifiedClassNameFromFile($file, $basePath, $baseNamespace))
             ->map(function (string $class) {
                 try {
                     return new ReflectionClass($class);
@@ -35,10 +35,11 @@ class ModelFinder
                 }
             })
             ->filter()
-            ->filter(fn (ReflectionClass $class) => $class->isSubclassOf(Model::class));
+            ->filter(fn (ReflectionClass $class) => $class->isSubclassOf(Model::class))
+            ->map(fn(ReflectionClass $reflectionClass) => $reflectionClass->getName());
     }
 
-    protected function fullQualifiedClassNameFromFile(
+    protected static function fullQualifiedClassNameFromFile(
         SplFileInfo $file,
         string $basePath,
         string $baseNamespace

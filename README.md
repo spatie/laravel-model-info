@@ -11,7 +11,7 @@
 Using this package you can determine which attributes and relations your model classes have.
 
 ```php
-use \Spatie\ModelMeta\ModelMeta;
+use Spatie\ModelMeta\ModelMeta;
 
 $modelMeta = ModelMeta::forModel(YourModel::class);
 
@@ -28,7 +28,11 @@ $model->attributes->first()->type // returns the type of the first relation, eg.
 $model->attributes->first()->related // returns the related model of the first relation, eg. `App\Models\User`
 ```
 
-Additionally, 
+Additionally, the package can also discover all the models in your application.
+
+```php
+$models = ModelFinder::all(); // returns a `Illuminate\Support\Collection` containing all the class names of all your models.
+```
 
 ## Support us
 
@@ -46,37 +50,50 @@ You can install the package via composer:
 composer require spatie/laravel-model-meta
 ```
 
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="laravel-model-meta-migrations"
-php artisan migrate
-```
-
-You can publish the config file with:
-
-```bash
-php artisan vendor:publish --tag="laravel-model-meta-config"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="laravel-model-meta-views"
-```
-
 ## Usage
 
+You can get information about a model by calling `forModel`:
+
 ```php
-$ModelMeta = new Spatie\ModelMeta();
-echo $ModelMeta->echoPhrase('Hello, Spatie!');
+use Spatie\ModelMeta\ModelMeta;
+
+$modelMeta = ModelMeta::forModel(YourModel::class);
+
+$model->fileName; // returns the filename that contains your model
+$model->tableName; // returns the name of the table your models are stored in
+$model->attributes // returns a collection of `Attribute` objects
+$model->relations // returns a collection of `Relation` objects
+```
+
+### Attributes
+
+A `Spatie\ModelMeta\Attributes\Attribute` object has these properties:
+
+- `name`
+- `type`
+- `increments`
+- `nullable`
+- `default`
+- `unique`
+- `fillable`
+- `appended`
+- `cast`
+- `virtual`
+
+### Relationships
+
+A `Spatie\ModelMeta\Relations\Relation` object has these properties:
+
+- `name`
+- `type`
+- `related`
+
+## Discovering all models in your application
+
+```php
+use Spatie\ModelMeta\ModelFinder;
+
+$models = ModelFinder::all(); // returns a `Illuminate\Support\Collection` containing all the class names of all your models.
 ```
 
 ## Testing
