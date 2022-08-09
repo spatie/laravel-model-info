@@ -3,9 +3,12 @@
 namespace Spatie\ModelMeta\Relations;
 
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Traits\Macroable;
 
 class Relation implements Arrayable
 {
+    use Macroable;
+
     public function __construct(
         public string $name,
         public string $type,

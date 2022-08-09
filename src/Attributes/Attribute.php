@@ -3,9 +3,12 @@
 namespace Spatie\ModelMeta\Attributes;
 
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Traits\Macroable;
 
 class Attribute implements Arrayable
 {
+    use Macroable;
+
     public function __construct(
         public string $name,
         public string $type,

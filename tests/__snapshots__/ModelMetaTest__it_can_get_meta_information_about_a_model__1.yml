@@ -1,0 +1,11 @@
+class: Spatie\ModelMeta\Tests\TestSupport\Models\RelationTestModel
+fileName: /Users/freek/dev/code/laravel-model-meta/tests/TestSupport/Models/RelationTestModel.php
+connectionName: testing
+tableName: relation_test_models
+relations:
+    - { name: user, type: BelongsTo, related: Illuminate\Foundation\Auth\User }
+attributes:
+    - { name: id, type: integer, increments: true, nullable: false, default: null, unique: true, fillable: false, appended: null, cast: int, virtual: false }
+    - { name: name, type: string, increments: false, nullable: false, default: null, unique: false, fillable: false, appended: null, cast: null, virtual: false }
+    - { name: created_at, type: datetime, increments: false, nullable: true, default: null, unique: false, fillable: false, appended: null, cast: datetime, virtual: false }
+    - { name: updated_at, type: datetime, increments: false, nullable: true, default: null, unique: false, fillable: false, appended: null, cast: datetime, virtual: false }

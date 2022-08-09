@@ -45,4 +45,14 @@ class TestCase extends Orchestra
             $table->timestamps();
         });
     }
+
+    public function getTestSupportDirectory(string $suffix = ''): string
+    {
+        return __DIR__ . $suffix;
+    }
+
+    public function getTestDirectory(): string
+    {
+        return realpath($this->getTestSupportDirectory('/..'));
+    }
 }
