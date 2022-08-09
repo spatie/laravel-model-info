@@ -11,7 +11,28 @@ use Spatie\ModelMeta\Relations\RelationFinder;
 class ModelMeta
 {
     /**
-     * @param  class-string<Model>|Model|ReflectionClass  $model
+     * @param string|null $directory
+     * @param string|null $basePath
+     * @param string|null $baseNamespace
+     *
+     * @return Collection<ModelMeta>
+     */
+    public static function forAllModels(
+        string $directory = null,
+        string $basePath = null,
+        string $baseNamespace = null
+    ): Collection {
+
+        return (new ModelFinder())
+            ->getModelClasses($directory, $basePath, $baseNamespace)
+            ->map(function(ReflectionClass $model) {
+                return self::forModel($model);
+            });
+    }
+
+    /**
+     * @param class-string<Model>|Model|ReflectionClass $model
+     *
      * @return self
      */
     public static function forModel(string|Model|ReflectionClass $model): self
@@ -28,20 +49,21 @@ class ModelMeta
             $model::class,
             (new ReflectionClass($model))->getFileName(),
             $model->getConnection()->getName(),
-            $model->getConnection()->getTablePrefix().$model->getTable(),
+            $model->getConnection()->getTablePrefix() . $model->getTable(),
             RelationFinder::forModel($model),
             AttributeFinder::forModel($model),
         );
     }
 
     public function __construct(
-        public string $class,
-        public string $fileName,
-        public string $connectionName,
-        public string $tableName,
+        public string     $class,
+        public string     $fileName,
+        public string     $connectionName,
+        public string     $tableName,
         public Collection $relations,
         public Collection $attributes,
-    ) {
+    )
+    {
     }
 
     public function toArray(): array

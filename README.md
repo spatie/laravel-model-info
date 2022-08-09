@@ -8,7 +8,27 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/spatie/laravel-model-meta/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/spatie/laravel-model-meta/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-model-meta.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-model-meta)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+Using this package you can determine which attributes and relations your model classes have.
+
+```php
+use \Spatie\ModelMeta\ModelMeta;
+
+$modelMeta = ModelMeta::forModel(YourModel::class);
+
+$model->fileName; // returns the filename that contains your model
+$model->tableName; // returns the name of the table your models are stored in
+
+$model->attributes // returns a collection of `Attribute` objects
+$model->attributes->first()->name // returns the name of the first attribute
+$model->attributes->first()->type // returns the type of the first attribute (string, integer, ...)
+
+$model->relations // returns a collection of `Relation` objects
+$model->attributes->first()->name // returns the name of the first relation, eg. `author`
+$model->attributes->first()->type // returns the type of the first relation, eg. `BelongsTo`
+$model->attributes->first()->related // returns the related model of the first relation, eg. `App\Models\User`
+```
+
+Additionally, 
 
 ## Support us
 

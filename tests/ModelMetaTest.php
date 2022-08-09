@@ -12,3 +12,14 @@ it('can get meta information about a model', function () {
 
     $this->assertMatchesSnapshot($modelMeta);
 });
+
+it('can get meta information about all models', function () {
+    $modelMeta = ModelMeta::forAllModels(
+        $this->getTestSupportDirectory(),
+        $this->getTestDirectory(),
+        "Spatie\ModelMeta\Tests",
+    );
+
+    expect($modelMeta)->toHaveCount(2);
+    expect($modelMeta->first())->toBeInstanceOf(ModelMeta::class);
+});
