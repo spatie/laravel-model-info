@@ -4,6 +4,7 @@ namespace Spatie\ModelInfo\Relations;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Traits\Macroable;
+use Spatie\ModelInfo\ModelInfo;
 
 class Relation implements Arrayable
 {
@@ -14,6 +15,11 @@ class Relation implements Arrayable
         public string $type,
         public string $related,
     ) {
+    }
+
+    public function relatedModelInfo(): ModelInfo
+    {
+        return ModelInfo::forModel($this->related);
     }
 
     /**

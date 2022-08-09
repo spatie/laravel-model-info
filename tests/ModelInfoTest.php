@@ -30,3 +30,30 @@ it('can get extra info from a model', function () {
 
     expect($modelInfo->extra)->toBe('extra info');
 });
+
+it('can get a specific attribute', function() {
+    $modelInfo = ModelInfo::forModel(RelationTestModel::class);
+
+    $attribute = $modelInfo->attribute('name');
+    expect($attribute->name)->toBe('name');
+});
+
+it('it will return null when getting a non-existing attribute', function() {
+    $modelInfo = ModelInfo::forModel(RelationTestModel::class);
+
+   expect($modelInfo->attribute('does_not_exist'))->toBeNull();
+});
+
+it('can get a specific relation', function() {
+    $modelInfo = ModelInfo::forModel(RelationTestModel::class);
+
+    $relation = $modelInfo->relation('user');
+
+    expect($relation->name)->toBe('user');
+});
+
+it('it will return null when getting a non-existing relation', function() {
+    $modelInfo = ModelInfo::forModel(RelationTestModel::class);
+
+    expect($modelInfo->relation('doesNotExist'))->toBeNull();
+});

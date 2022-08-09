@@ -80,6 +80,26 @@ $modelInfo->attributes; // returns a collection of `Attribute` objects
 $modelInfo->relations; // returns a collection of `Relation` objects
 ```
 
+### Getting a specific attribute
+
+```php
+use Spatie\ModelInfo\ModelInfo;
+
+// returns an instance of `Spatie\ModelInfo\Attributes\Attribute`
+ModelInfo::forModel(BlogPost::class)->attribute('name');
+```
+
+### Getting a specific relation
+
+You can get a specific relation using the `relation` method.
+
+```php
+use Spatie\ModelInfo\ModelInfo;
+
+// returns an instance of `Spatie\ModelInfo\Relations\Relation`
+ModelInfo::forModel(BlogPost::class)->relation('user')
+```
+
 ### Attributes
 
 A `Spatie\ModelInfo\Attributes\Attribute` object has these properties:
@@ -102,6 +122,16 @@ A `Spatie\ModelInfo\Relations\Relation` object has these properties:
 - `name`
 - `type`
 - `related`
+
+It also has a `relatedModelInfo()` method that gives a `ModelInfo` instance for the related model.
+
+```php
+use Spatie\ModelInfo\ModelInfo;
+
+ModelInfo::forModel(BlogPost::class)
+   ->relation('user')
+   ->relatedModelInfo() // returns the `ModelInfo` for the `User` model
+```
 
 ## Discovering all models in your application
 

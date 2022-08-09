@@ -5,7 +5,9 @@ namespace Spatie\ModelInfo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use ReflectionClass;
+use Spatie\ModelInfo\Attributes\Attribute;
 use Spatie\ModelInfo\Attributes\AttributeFinder;
+use Spatie\ModelInfo\Relations\Relation;
 use Spatie\ModelInfo\Relations\RelationFinder;
 
 class ModelInfo
@@ -87,5 +89,19 @@ class ModelInfo
         $items = $items->map->toArray();
 
         return $items->toArray();
+    }
+
+    public function attribute(string $name): ?Attribute
+    {
+        return $this->attributes->first(
+            fn(Attribute $attribute) => $attribute->name === $name
+        );
+    }
+
+    public function relation(string $name): ?Relation
+    {
+        return $this->relations->first(
+            fn(Relation $relation) => $relation->name === $name
+        );
     }
 }
