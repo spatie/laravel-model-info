@@ -16,8 +16,7 @@ use UnitEnum;
 class AttributeFinder
 {
     /**
-     * @param class-string<Model>|Model $model
-     *
+     * @param  class-string<Model>|Model  $model
      * @return \Illuminate\Support\Collection<Attribute>
      */
     public static function forModel(string|Model $model): Collection
@@ -30,24 +29,23 @@ class AttributeFinder
     }
 
     /**
-     * @param Model $model
-     *
+     * @param  Model  $model
      * @return \Illuminate\Support\Collection<Attribute>
      */
     protected function attributes(Model $model): Collection
     {
         $schema = $model->getConnection()->getDoctrineSchemaManager();
-        $table = $model->getConnection()->getTablePrefix() . $model->getTable();
+        $table = $model->getConnection()->getTablePrefix().$model->getTable();
         $columns = $schema->listTableColumns($table);
         $indexes = $schema->listTableIndexes($table);
 
         return collect($columns)
             ->values()
-            ->map(fn(Column $column) => new Attribute(
+            ->map(fn (Column $column) => new Attribute(
                 $column->getName(),
                 $this->getColumnType($column),
                 $column->getAutoincrement(),
-                !$column->getNotnull(),
+                ! $column->getNotnull(),
                 $this->getColumnDefault($column, $model),
                 $this->columnIsUnique($column->getName(), $indexes),
                 $model->isFillable($column->getName()),
@@ -65,7 +63,7 @@ class AttributeFinder
         $unsigned = $column->getUnsigned() ? ' unsigned' : '';
 
         $details = match (get_class($column->getType())) {
-            DecimalType::class => $column->getPrecision() . ',' . $column->getScale(),
+            DecimalType::class => $column->getPrecision().','.$column->getScale(),
             default => $column->getLength(),
         };
 
@@ -88,16 +86,15 @@ class AttributeFinder
     }
 
     /**
-     * @param string $column
-     * @param array<Index> $indexes
-     *
+     * @param  string  $column
+     * @param  array<Index>  $indexes
      * @return bool
      */
     protected function columnIsUnique(string $column, array $indexes): bool
     {
         return collect($indexes)
-            ->filter(fn(Index $index) => count($index->getColumns()) === 1 && $index->getColumns()[0] === $column)
-            ->contains(fn(Index $index) => $index->isUnique());
+            ->filter(fn (Index $index) => count($index->getColumns()) === 1 && $index->getColumns()[0] === $column)
+            ->contains(fn (Index $index) => $index->isUnique());
     }
 
     protected function attributeIsHidden(string $attribute, Model $model): bool
@@ -107,7 +104,7 @@ class AttributeFinder
         }
 
         if (count($model->getVisible()) > 0) {
-            return !in_array($attribute, $model->getVisible());
+            return ! in_array($attribute, $model->getVisible());
         }
 
         return false;
@@ -130,14 +127,13 @@ class AttributeFinder
     {
         return collect($model->getDates())
             ->flip()
-            ->map(fn() => 'datetime')
+            ->map(fn () => 'datetime')
             ->merge($model->getCasts());
     }
 
     /**
-     * @param Model $model
-     * @param array<Column> $columns
-     *
+     * @param  Model  $model
+     * @param  array<Column>  $columns
      * @return Collection<Attribute>
      */
     protected function getVirtualAttributes(Model $model, array $columns): Collection
@@ -145,7 +141,7 @@ class AttributeFinder
         $class = new ReflectionClass($model);
 
         return collect($class->getMethods())
-            ->reject(fn(ReflectionMethod $method) => $method->isStatic()
+            ->reject(fn (ReflectionMethod $method) => $method->isStatic()
                 || $method->isAbstract()
                 || $method->getDeclaringClass()->getName() !== get_class($model)
             )
@@ -160,8 +156,8 @@ class AttributeFinder
 
                 return [];
             })
-            ->reject(fn($cast, $name) => collect($columns)->has($name))
-            ->map(fn($cast, $name) => new Attribute(
+            ->reject(fn ($cast, $name) => collect($columns)->has($name))
+            ->map(fn ($cast, $name) => new Attribute(
                 $name,
                 null,
                 false,
