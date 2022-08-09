@@ -93,7 +93,9 @@ A `Spatie\ModelMeta\Relations\Relation` object has these properties:
 ```php
 use Spatie\ModelMeta\ModelFinder;
 
-$models = ModelFinder::all(); // returns a `Illuminate\Support\Collection` containing all the class names of all your models.
+// returns a `Illuminate\Support\Collection` containing
+// all the class names of all your models.
+$models = ModelFinder::all(); 
 ```
 
 ## Testing
