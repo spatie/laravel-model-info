@@ -77,18 +77,10 @@ class ModelInfo
     public function toArray(): array
     {
         $properties = get_object_vars($this);
-        $properties['relations'] = $this->itemsToArray($properties['relations']);
-        $properties['attributes'] = $this->itemsToArray($properties['attributes']);
+        $properties['relations'] = $properties['relations']->toArray();
+        $properties['attributes'] =$properties['attributes']->toArray();
 
         return $properties;
-    }
-
-    protected function itemsToArray(Collection $items): array
-    {
-        /** @var Collection $items */
-        $items = $items->map->toArray();
-
-        return $items->toArray();
     }
 
     public function attribute(string $name): ?Attribute
