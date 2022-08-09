@@ -123,6 +123,29 @@ use Spatie\ModelInfo\ModelInfo;
 ModelInfo::forAllModels(); // returns a collection of `ModelInfo` instances
 ```
 
+## Adding extra info on a model
+
+To add extra info on a model, add a method `extraModelInfo` to your model. It can return anything you want: an string, an object, an array.
+
+```php
+// in your model
+
+public function extraModelInfo()
+{
+    return 'anything you want';
+}
+```
+
+The returned value will be available on the `extra` property of a `ModelInfo` instance.
+
+```php
+use Spatie\ModelInfo\ModelInfo;
+
+$modelInfo = \Spatie\ModelInfo\ModelInfo::forModel(YourModel::class);
+
+$modelInfo->extra; // returns 'anything you want'
+```
+
 ## Testing
 
 ```bash

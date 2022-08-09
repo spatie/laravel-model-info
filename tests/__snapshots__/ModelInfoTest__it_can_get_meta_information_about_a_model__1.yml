@@ -9,3 +9,4 @@ attributes:
     - { name: name, type: string, increments: false, nullable: false, default: null, unique: false, fillable: false, appended: null, cast: null, virtual: false }
     - { name: created_at, type: datetime, increments: false, nullable: true, default: null, unique: false, fillable: false, appended: null, cast: datetime, virtual: false }
     - { name: updated_at, type: datetime, increments: false, nullable: true, default: null, unique: false, fillable: false, appended: null, cast: datetime, virtual: false }
+extra: null

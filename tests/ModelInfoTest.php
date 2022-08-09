@@ -1,6 +1,7 @@
 <?php
 
 use Spatie\ModelInfo\ModelInfo;
+use Spatie\ModelInfo\Tests\TestSupport\Models\ExtraModelInfoModel;
 use Spatie\ModelInfo\Tests\TestSupport\Models\RelationTestModel;
 
 it('can get meta information about a model', function () {
@@ -20,6 +21,12 @@ it('can get meta information about all models', function () {
         "Spatie\ModelInfo\Tests",
     );
 
-    expect($modelInfo)->toHaveCount(2);
+    expect($modelInfo)->toHaveCount(3);
     expect($modelInfo->first())->toBeInstanceOf(ModelInfo::class);
+});
+
+it('can get extra info from a model', function() {
+   $modelInfo = ModelInfo::forModel(ExtraModelInfoModel::class);
+
+   expect($modelInfo->extra)->toBe('extra info');
 });

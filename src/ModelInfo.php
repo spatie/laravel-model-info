@@ -48,6 +48,7 @@ class ModelInfo
             $model->getConnection()->getTablePrefix().$model->getTable(),
             RelationFinder::forModel($model),
             AttributeFinder::forModel($model),
+            self::getExtraModelInfo($model),
         );
     }
 
@@ -58,7 +59,17 @@ class ModelInfo
         public string $tableName,
         public Collection $relations,
         public Collection $attributes,
+        public mixed $extra = null,
     ) {
+    }
+
+    protected static function getExtraModelInfo(Model $model): mixed
+    {
+        if (method_exists($model, 'extraModelInfo')) {
+            return $model->extraModelInfo();
+        }
+
+        return null;
     }
 
     public function toArray(): array
