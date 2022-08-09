@@ -32,15 +32,15 @@ Here's how you can get information about the relations
 
 ```php
 // returns the name of the first relation, eg. `author`
-$modelInfo->attributes->first()->name;
+$modelInfo->relations->first()->name;
 
 // returns the type of the
 // first relation, eg. `BelongsTo`
-$modelInfo->attributes->first()->type;
+$modelInfo->relations->first()->type;
 
 // returns the related model of the
 // first relation, eg. `App\Models\User`
-$modelInfo->attributes->first()->related; 
+$modelInfo->relations->first()->related; 
 ```
 
 Additionally, the package can also discover all the models in your application.
