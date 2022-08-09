@@ -170,7 +170,6 @@ class AttributeFinder
                 }
 
                 return [];
-
             })
             ->reject(fn ($cast, $name) => collect($columns)->has($name))
             ->map(fn ($cast, $name) => [
