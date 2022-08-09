@@ -17,7 +17,7 @@ class Attribute implements Arrayable
         public ?bool $appended,
         public ?string $cast,
         public bool $virtual,
-    ){
+    ) {
     }
 
     /**

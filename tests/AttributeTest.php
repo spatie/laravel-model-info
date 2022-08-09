@@ -20,5 +20,4 @@ function matchesAttributesSnapshot(Collection $attributes)
     $attributes = $attributes->toArray();
 
     assertMatchesSnapshot($attributes);
-
 }

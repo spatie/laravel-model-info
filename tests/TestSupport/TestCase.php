@@ -33,13 +33,13 @@ class TestCase extends Orchestra
     {
         config()->set('database.default', 'testing');
 
-        Schema::create('test_models', function(Blueprint $table) {
+        Schema::create('test_models', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->timestamps();
         });
 
-        Schema::create('relation_test_models', function(Blueprint $table) {
+        Schema::create('relation_test_models', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->timestamps();

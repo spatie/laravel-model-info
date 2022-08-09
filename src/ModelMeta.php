@@ -4,15 +4,13 @@ namespace Spatie\ModelReflection;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Spatie\ModelReflection\Attributes\Attribute;
 use Spatie\ModelReflection\Attributes\AttributeFinder;
 use Spatie\ModelReflection\Relations\RelationFinder;
 
 class ModelMeta
 {
     /**
-     * @param class-string<Model>|Model $model
-     *
+     * @param  class-string<Model>|Model  $model
      * @return self
      */
     public static function forModel(string|Model $model): self
@@ -21,13 +19,13 @@ class ModelMeta
             $model = new $model;
         }
 
-        return (new self(
+        return new self(
             $model::class,
             $model->getConnection()->getName(),
             $model->getConnection()->getTablePrefix().$model->getTable(),
             RelationFinder::forModel($model),
             AttributeFinder::forModel($model),
-        ));
+        );
     }
 
     public function __construct(
@@ -36,8 +34,6 @@ class ModelMeta
         public string $tableName,
         public Collection $relations,
         public Collection $attributes,
-    )
-    {
-
+    ) {
     }
 }
