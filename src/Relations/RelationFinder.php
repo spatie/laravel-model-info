@@ -28,7 +28,7 @@ class RelationFinder
     ];
 
     /**
-     * @param  lass-string<Model>|Model  $model
+     * @param class-string<Model>|Model $model
      * @return Collection<Attribute>
      */
     public static function forModel(string|Model $model): Collection
