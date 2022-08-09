@@ -11,11 +11,11 @@ class Attribute implements Arrayable
 
     public function __construct(
         public string $name,
-        public string $type,
+        public ?string $type,
         public bool $increments,
-        public bool $nullable,
+        public ?bool $nullable,
         public mixed $default,
-        public bool $unique,
+        public ?bool $unique,
         public bool $fillable,
         public ?bool $appended,
         public ?string $cast,

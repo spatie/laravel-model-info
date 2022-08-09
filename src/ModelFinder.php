@@ -20,7 +20,8 @@ class ModelFinder
         string $baseNamespace = null,
     ): Collection {
         $directory ??= app_path();
-        $basePath ??= $basePath;
+        $basePath ??= base_path();
+        $baseNamespace ??= '';
 
         $globPattern = realpath($directory).'/**/*.php';
 
