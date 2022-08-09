@@ -6,7 +6,7 @@ use ReflectionClass;
 use Spatie\ModelMeta\ModelFinder;
 use Spatie\ModelMeta\Tests\TestSupport\Models\RelationTestModel;
 
-it('can discover all models in a directory', function() {
+it('can discover all models in a directory', function () {
     $modelFinder = new ModelFinder();
 
     $models = $modelFinder->getModelClasses(
