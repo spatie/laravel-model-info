@@ -13,34 +13,34 @@ Using this package you can determine which attributes and relations your model c
 ```php
 use Spatie\ModelInfo\ModelInfo;
 
-$ModelInfo = ModelInfo::forModel(YourModel::class);
+$modelInfo = ModelInfo::forModel(YourModel::class);
 
-$model->fileName; // returns the filename that contains your model
-$model->tableName; // returns the name of the table your models are stored in
-$model->attributes; // returns a collection of `Attribute` objects
-$model->relations; // returns a collection of `Relation` objects
+$modelInfo->fileName; // returns the filename that contains your model
+$modelInfo->tableName; // returns the name of the table your models are stored in
+$modelInfo->attributes; // returns a collection of `Attribute` objects
+$modelInfo->relations; // returns a collection of `Relation` objects
 ```
 
 Here's how you can get information about the attributes:
 
 ```php
-$model->attributes->first()->name; // returns the name of the first attribute
-$model->attributes->first()->type; // returns the type of the first attribute (string, integer, ...)
+$modelInfo->attributes->first()->name; // returns the name of the first attribute
+$modelInfo->attributes->first()->type; // returns the type of the first attribute (string, integer, ...)
 ```
 
 Here's how you can get information about the relations
 
 ```php
 // returns the name of the first relation, eg. `author`
-$model->attributes->first()->name;
+$modelInfo->attributes->first()->name;
 
 // returns the type of the
 // first relation, eg. `BelongsTo`
-$model->attributes->first()->type;
+$modelInfo->attributes->first()->type;
 
 // returns the related model of the
 // first relation, eg. `App\Models\User`
-$model->attributes->first()->related; 
+$modelInfo->attributes->first()->related; 
 ```
 
 Additionally, the package can also discover all the models in your application.
@@ -72,12 +72,12 @@ You can get information about a model by calling `forModel`:
 ```php
 use Spatie\ModelInfo\ModelInfo;
 
-$ModelInfo = ModelInfo::forModel(YourModel::class);
+$modelInfo = ModelInfo::forModel(YourModel::class);
 
-$model->fileName; // returns the filename that contains your model
-$model->tableName; // returns the name of the table your models are stored in
-$model->attributes; // returns a collection of `Attribute` objects
-$model->relations;`` // returns a collection of `Relation` objects
+$modelInfo->fileName; // returns the filename that contains your model
+$modelInfo->tableName; // returns the name of the table your models are stored in
+$modelInfo->attributes; // returns a collection of `Attribute` objects
+$modelInfo->relations; // returns a collection of `Relation` objects
 ```
 
 ### Attributes
@@ -111,6 +111,16 @@ use Spatie\ModelInfo\ModelFinder;
 // returns a `Illuminate\Support\Collection` containing
 // all the class names of all your models.
 $models = ModelFinder::all(); 
+```
+
+## Getting information on all model in your application
+
+The `ModelInfo` class can get information about all models in your application
+
+```php
+use Spatie\ModelInfo\ModelInfo;
+
+ModelInfo::forAllModels(); // returns a collection of `ModelInfo` instances
 ```
 
 ## Testing
