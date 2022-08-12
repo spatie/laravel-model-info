@@ -5,6 +5,7 @@
     increments: true
     nullable: false
     default: null
+    primary: true
     unique: true
     fillable: false
     appended: null
@@ -17,6 +18,7 @@
     increments: false
     nullable: false
     default: null
+    primary: false
     unique: false
     fillable: false
     appended: null
@@ -29,6 +31,7 @@
     increments: false
     nullable: true
     default: null
+    primary: false
     unique: false
     fillable: false
     appended: null
@@ -41,6 +44,7 @@
     increments: false
     nullable: true
     default: null
+    primary: false
     unique: false
     fillable: false
     appended: null
@@ -53,6 +57,7 @@
     increments: false
     nullable: null
     default: null
+    primary: null
     unique: null
     fillable: false
     appended: false
@@ -65,6 +70,7 @@
     increments: false
     nullable: null
     default: null
+    primary: null
     unique: null
     fillable: false
     appended: false

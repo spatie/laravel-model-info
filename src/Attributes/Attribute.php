@@ -16,6 +16,7 @@ class Attribute implements Arrayable
         public bool $increments,
         public ?bool $nullable,
         public mixed $default,
+        public ?bool $primary,
         public ?bool $unique,
         public bool $fillable,
         public ?bool $appended,
