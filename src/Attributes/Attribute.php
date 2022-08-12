@@ -11,6 +11,7 @@ class Attribute implements Arrayable
 
     public function __construct(
         public string $name,
+        public ?string $phpType,
         public ?string $type,
         public bool $increments,
         public ?bool $nullable,

@@ -6,6 +6,7 @@ use BackedEnum;
 use Doctrine\DBAL\Schema\Column;
 use Doctrine\DBAL\Schema\Index;
 use Doctrine\DBAL\Types\DecimalType;
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -43,6 +44,7 @@ class AttributeFinder
             ->values()
             ->map(fn (Column $column) => new Attribute(
                 $column->getName(),
+                $this->getPhpType($column),
                 $this->getColumnType($column),
                 $column->getAutoincrement(),
                 ! $column->getNotnull(),
@@ -72,6 +74,33 @@ class AttributeFinder
         }
 
         return "{$name}{$unsigned}";
+    }
+
+    /**
+     * Returns php type name as a string
+     * Mappings are defined based on this doctrine documentation:
+     * @link https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/types.html#detection-of-database-types
+     *
+     * @param Column $column
+     *
+     * @return string
+     */
+    protected function getPhpType(Column $column): string
+    {
+        $name = $column->getType()->getName();
+
+        return match ($name) {
+            "string", "ascii_string", "bigint", "decimal", "text", "guid" => "string",
+            "integer", "smallint" => "int",
+            "float" => "float",
+            "binary", "blob" => "resource",
+            "boolean" => "bool",
+            "date", "datetime", "datetimetz" => "DateTime",
+            "array" => "array",
+            "json" => "mixed",
+            "object" => "object",
+            default => throw new Exception("Unknown type: $name. Mappings were defined from the Doctrine DBAL documentation at: https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/types.html#detection-of-database-types. Double check everything."),
+        };
     }
 
     protected function getColumnDefault(Column $column, Model $model): mixed
@@ -147,11 +176,21 @@ class AttributeFinder
             )
             ->mapWithKeys(function (ReflectionMethod $method) use ($model) {
                 if (preg_match('/^get(.*)Attribute$/', $method->getName(), $matches) === 1) {
-                    return [Str::snake($matches[1]) => 'accessor'];
+                    return [
+                        Str::snake($matches[1]) => [
+                            'cast_type' => 'accessor',
+                            'php_type' => $method->getReturnType()?->getName()
+                        ]
+                    ];
                 }
 
                 if ($model->hasAttributeMutator($method->getName())) {
-                    return [Str::snake($method->getName()) => 'attribute'];
+                    return [
+                        Str::snake($method->getName()) => [
+                            'cast_type' => 'attribute',
+                            'php_type' => null
+                        ]
+                    ];
                 }
 
                 return [];
@@ -159,6 +198,7 @@ class AttributeFinder
             ->reject(fn ($cast, $name) => collect($columns)->has($name))
             ->map(fn ($cast, $name) => new Attribute(
                 $name,
+                $cast['php_type'] ?? null,
                 null,
                 false,
                 null,
@@ -166,9 +206,8 @@ class AttributeFinder
                 null,
                 $model->isFillable($name),
                 $model->hasAppended($name),
-                $cast,
+                $cast['cast_type'],
                 true,
-
             ))
             ->values();
     }

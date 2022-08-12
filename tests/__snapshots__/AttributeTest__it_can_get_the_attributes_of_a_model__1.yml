@@ -1,5 +1,6 @@
 -
     name: id
+    phpType: int
     type: integer
     increments: true
     nullable: false
@@ -11,6 +12,7 @@
     virtual: false
 -
     name: name
+    phpType: string
     type: string
     increments: false
     nullable: false
@@ -22,6 +24,7 @@
     virtual: false
 -
     name: created_at
+    phpType: DateTime
     type: datetime
     increments: false
     nullable: true
@@ -33,6 +36,7 @@
     virtual: false
 -
     name: updated_at
+    phpType: DateTime
     type: datetime
     increments: false
     nullable: true
@@ -42,3 +46,27 @@
     appended: null
     cast: datetime
     virtual: false
+-
+    name: title_uppercase
+    phpType: string
+    type: null
+    increments: false
+    nullable: null
+    default: null
+    unique: null
+    fillable: false
+    appended: false
+    cast: accessor
+    virtual: true
+-
+    name: title_without_return_type
+    phpType: null
+    type: null
+    increments: false
+    nullable: null
+    default: null
+    unique: null
+    fillable: false
+    appended: false
+    cast: accessor
+    virtual: true
