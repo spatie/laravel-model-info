@@ -42,7 +42,7 @@ class AttributeFinder
 
         return collect($columns)
             ->values()
-            ->map(function (Column $column) use($model, $columns, $indexes) {
+            ->map(function (Column $column) use ($model, $indexes) {
                 $columnIndexes = $this->getIndexes($column->getName(), $indexes);
 
                 return new Attribute(
@@ -84,10 +84,10 @@ class AttributeFinder
     /**
      * Returns php type name as a string
      * Mappings are defined based on this doctrine documentation:
+     *
      * @link https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/types.html#detection-of-database-types
      *
-     * @param Column $column
-     *
+     * @param  Column  $column
      * @return string
      */
     protected function getPhpType(Column $column): string
@@ -95,15 +95,15 @@ class AttributeFinder
         $name = $column->getType()->getName();
 
         return match ($name) {
-            "string", "ascii_string", "bigint", "decimal", "text", "guid" => "string",
-            "integer", "smallint" => "int",
-            "float" => "float",
-            "binary", "blob" => "resource",
-            "boolean" => "bool",
-            "date", "datetime", "datetimetz" => "DateTime",
-            "array" => "array",
-            "json" => "mixed",
-            "object" => "object",
+            'string', 'ascii_string', 'bigint', 'decimal', 'text', 'guid' => 'string',
+            'integer', 'smallint' => 'int',
+            'float' => 'float',
+            'binary', 'blob' => 'resource',
+            'boolean' => 'bool',
+            'date', 'datetime', 'datetimetz' => 'DateTime',
+            'array' => 'array',
+            'json' => 'mixed',
+            'object' => 'object',
             default => throw new Exception("Unknown type: $name. Mappings were defined from the Doctrine DBAL documentation at: https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/types.html#detection-of-database-types. Double check everything."),
         };
     }
@@ -120,12 +120,12 @@ class AttributeFinder
     }
 
     /**
-     * @param string $column
-     * @param Index[]  $indexes
-     *
+     * @param  string  $column
+     * @param  Index[]  $indexes
      * @return Collection<int, Index>
      */
-    protected function getIndexes(string $column, array $indexes) {
+    protected function getIndexes(string $column, array $indexes)
+    {
         return collect($indexes)
             ->filter(fn (Index $index) => count($index->getColumns()) === 1 && $index->getColumns()[0] === $column);
     }
@@ -183,8 +183,8 @@ class AttributeFinder
                     return [
                         Str::snake($matches[1]) => [
                             'cast_type' => 'accessor',
-                            'php_type' => $method->getReturnType()?->getName()
-                        ]
+                            'php_type' => $method->getReturnType()?->getName(),
+                        ],
                     ];
                 }
 
@@ -192,8 +192,8 @@ class AttributeFinder
                     return [
                         Str::snake($method->getName()) => [
                             'cast_type' => 'attribute',
-                            'php_type' => null
-                        ]
+                            'php_type' => null,
+                        ],
                     ];
                 }
 

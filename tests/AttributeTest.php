@@ -16,13 +16,12 @@ it('can get the attributes of a model', function () {
 it('can get virtual attribute php types of a model', function () {
     $attributes = AttributeFinder::forModel(new TestModel());
 
-    $titleUppercaseAttr         = $attributes->first(fn($attr) => $attr->name === 'title_uppercase');
-    $titleWithoutReturnTypeAttr = $attributes->first(fn($attr) => $attr->name === 'title_without_return_type');
+    $titleUppercaseAttr = $attributes->first(fn ($attr) => $attr->name === 'title_uppercase');
+    $titleWithoutReturnTypeAttr = $attributes->first(fn ($attr) => $attr->name === 'title_without_return_type');
 
     $this->assertNotNull($titleUppercaseAttr);
     $this->assertEquals('string', $titleUppercaseAttr->phpType);
     $this->assertEquals(null, $titleWithoutReturnTypeAttr->phpType);
-
 });
 
 function matchesAttributesSnapshot(Collection $attributes)
