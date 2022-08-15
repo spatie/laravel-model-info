@@ -6,6 +6,7 @@ use BackedEnum;
 use Doctrine\DBAL\Schema\Column;
 use Doctrine\DBAL\Schema\Index;
 use Doctrine\DBAL\Types\DecimalType;
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -41,18 +42,24 @@ class AttributeFinder
 
         return collect($columns)
             ->values()
-            ->map(fn (Column $column) => new Attribute(
-                $column->getName(),
-                $this->getColumnType($column),
-                $column->getAutoincrement(),
-                ! $column->getNotnull(),
-                $this->getColumnDefault($column, $model),
-                $this->columnIsUnique($column->getName(), $indexes),
-                $model->isFillable($column->getName()),
-                null,
-                $this->getCastType($column->getName(), $model),
-                false,
-            ))
+            ->map(function (Column $column) use($model, $columns, $indexes) {
+                $columnIndexes = $this->getIndexes($column->getName(), $indexes);
+
+                return new Attribute(
+                    name: $column->getName(),
+                    phpType: $this->getPhpType($column),
+                    type: $this->getColumnType($column),
+                    increments: $column->getAutoincrement(),
+                    nullable: ! $column->getNotnull(),
+                    default: $this->getColumnDefault($column, $model),
+                    primary: $columnIndexes->contains(fn (Index $index) => $index->isPrimary()),
+                    unique: $columnIndexes->contains(fn (Index $index) => $index->isUnique()),
+                    fillable: $model->isFillable($column->getName()),
+                    appended: null,
+                    cast: $this->getCastType($column->getName(), $model),
+                    virtual: false,
+                );
+            })
             ->merge($this->getVirtualAttributes($model, $columns));
     }
 
@@ -74,6 +81,33 @@ class AttributeFinder
         return "{$name}{$unsigned}";
     }
 
+    /**
+     * Returns php type name as a string
+     * Mappings are defined based on this doctrine documentation:
+     * @link https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/types.html#detection-of-database-types
+     *
+     * @param Column $column
+     *
+     * @return string
+     */
+    protected function getPhpType(Column $column): string
+    {
+        $name = $column->getType()->getName();
+
+        return match ($name) {
+            "string", "ascii_string", "bigint", "decimal", "text", "guid" => "string",
+            "integer", "smallint" => "int",
+            "float" => "float",
+            "binary", "blob" => "resource",
+            "boolean" => "bool",
+            "date", "datetime", "datetimetz" => "DateTime",
+            "array" => "array",
+            "json" => "mixed",
+            "object" => "object",
+            default => throw new Exception("Unknown type: $name. Mappings were defined from the Doctrine DBAL documentation at: https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/types.html#detection-of-database-types. Double check everything."),
+        };
+    }
+
     protected function getColumnDefault(Column $column, Model $model): mixed
     {
         $attributeDefault = $model->getAttributes()[$column->getName()] ?? null;
@@ -86,15 +120,14 @@ class AttributeFinder
     }
 
     /**
-     * @param  string  $column
-     * @param  array<Index>  $indexes
-     * @return bool
+     * @param string $column
+     * @param Index[]  $indexes
+     *
+     * @return Collection<int, Index>
      */
-    protected function columnIsUnique(string $column, array $indexes): bool
-    {
+    protected function getIndexes(string $column, array $indexes) {
         return collect($indexes)
-            ->filter(fn (Index $index) => count($index->getColumns()) === 1 && $index->getColumns()[0] === $column)
-            ->contains(fn (Index $index) => $index->isUnique());
+            ->filter(fn (Index $index) => count($index->getColumns()) === 1 && $index->getColumns()[0] === $column);
     }
 
     protected function attributeIsHidden(string $attribute, Model $model): bool
@@ -147,28 +180,39 @@ class AttributeFinder
             )
             ->mapWithKeys(function (ReflectionMethod $method) use ($model) {
                 if (preg_match('/^get(.*)Attribute$/', $method->getName(), $matches) === 1) {
-                    return [Str::snake($matches[1]) => 'accessor'];
+                    return [
+                        Str::snake($matches[1]) => [
+                            'cast_type' => 'accessor',
+                            'php_type' => $method->getReturnType()?->getName()
+                        ]
+                    ];
                 }
 
                 if ($model->hasAttributeMutator($method->getName())) {
-                    return [Str::snake($method->getName()) => 'attribute'];
+                    return [
+                        Str::snake($method->getName()) => [
+                            'cast_type' => 'attribute',
+                            'php_type' => null
+                        ]
+                    ];
                 }
 
                 return [];
             })
             ->reject(fn ($cast, $name) => collect($columns)->has($name))
             ->map(fn ($cast, $name) => new Attribute(
-                $name,
-                null,
-                false,
-                null,
-                null,
-                null,
-                $model->isFillable($name),
-                $model->hasAppended($name),
-                $cast,
-                true,
-
+                name: $name,
+                phpType: $cast['php_type'] ?? null,
+                type: null,
+                increments: false,
+                nullable: null,
+                default: null,
+                primary: null,
+                unique: null,
+                fillable: $model->isFillable($name),
+                appended: $model->hasAppended($name),
+                cast: $cast['cast_type'],
+                virtual: true,
             ))
             ->values();
     }
