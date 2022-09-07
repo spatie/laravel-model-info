@@ -60,7 +60,6 @@ it('can get a specific relation', function () {
     $relatedModelInfo = $relation->relatedModelInfo();
     expect($relatedModelInfo)->toBeInstanceOf(ModelInfo::class);
     expect($relatedModelInfo->class)->toBe(User::class);
-
 });
 
 it('it will return null when getting a non-existing relation', function () {
