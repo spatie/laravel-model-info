@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-model-info` will be documented in this file.
 
+## 1.0.0 - 2022-09-07
+
+**Full Changelog**: https://github.com/spatie/laravel-model-info/compare/0.0.5...1.0.0
+
 ## 0.0.5 - 2022-09-07
 
 ### What's Changed
