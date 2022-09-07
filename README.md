@@ -80,7 +80,8 @@ $modelInfo->attributes; // returns a collection of `Attribute` objects
 $modelInfo->relations; // returns a collection of `Relation` objects
 ```
 
-**Note:*** This package discovers relationships by their return type. Make sure that each relation in your project has a return type.
+> **Note:**
+> This package discovers relationships by their return type. Make sure that each relation in your project has a return type.
 
 ### Getting a specific attribute
 
