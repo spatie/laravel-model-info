@@ -35,7 +35,7 @@ class RelationFinder
         $class = new ReflectionClass($model);
 
         return collect($class->getMethods())
-            ->filter(fn (ReflectionMethod $method) => $this->hasRelationReturnType($method, $class))
+            ->filter(fn (ReflectionMethod $method) => $this->hasRelationReturnType($method))
             ->map(function (ReflectionMethod $method) use ($model) {
                 /** @var \Illuminate\Database\Eloquent\Relations\BelongsTo $relation */
                 $relation = $method->invoke($model);
