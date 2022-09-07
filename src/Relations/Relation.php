@@ -15,6 +15,7 @@ class Relation implements Arrayable
         public string $type,
         public string $related,
     ) {
+
     }
 
     public function relatedModelInfo(): ModelInfo

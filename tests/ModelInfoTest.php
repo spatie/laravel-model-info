@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Foundation\Auth\User;
 use Spatie\ModelInfo\ModelInfo;
 use Spatie\ModelInfo\Tests\TestSupport\Models\ExtraModelInfoModel;
 use Spatie\ModelInfo\Tests\TestSupport\Models\RelationTestModel;
@@ -35,6 +37,7 @@ it('can get a specific attribute', function () {
     $modelInfo = ModelInfo::forModel(RelationTestModel::class);
 
     $attribute = $modelInfo->attribute('name');
+
     expect($attribute->name)->toBe('name');
 });
 
@@ -49,7 +52,15 @@ it('can get a specific relation', function () {
 
     $relation = $modelInfo->relation('user');
 
-    expect($relation->name)->toBe('user');
+    expect($relation)
+        ->name->toBe('user')
+        ->type->toBe(BelongsTo::class)
+        ->related->toBe(User::class);
+
+    $relatedModelInfo = $relation->relatedModelInfo();
+    expect($relatedModelInfo)->toBeInstanceOf(ModelInfo::class);
+    expect($relatedModelInfo->class)->toBe(User::class);
+
 });
 
 it('it will return null when getting a non-existing relation', function () {

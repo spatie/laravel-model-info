@@ -3,7 +3,7 @@ fileName: /TestSupport/Models/RelationTestModel.php
 connectionName: testing
 tableName: relation_test_models
 relations:
-    - { name: user, type: BelongsTo, related: Illuminate\Foundation\Auth\User }
+    - { name: user, type: Illuminate\Database\Eloquent\Relations\BelongsTo, related: Illuminate\Foundation\Auth\User }
 attributes:
     - { name: id, phpType: int, type: integer, increments: true, nullable: false, default: null, primary: true, unique: true, fillable: false, appended: null, cast: int, virtual: false }
     - { name: name, phpType: string, type: string, increments: false, nullable: false, default: null, primary: false, unique: false, fillable: false, appended: null, cast: null, virtual: false }

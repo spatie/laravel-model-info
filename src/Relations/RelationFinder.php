@@ -3,30 +3,18 @@
 namespace Spatie\ModelInfo\Relations;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\Relation as IlluminateRelation;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use ReflectionClass;
 use ReflectionMethod;
+use ReflectionNamedType;
+use ReflectionUnionType;
 use Spatie\ModelInfo\Attributes\Attribute;
-use SplFileObject;
 
 class RelationFinder
 {
-    /** @var array<string> */
-    protected array $relationMethods = [
-        'hasMany',
-        'hasManyThrough',
-        'hasOneThrough',
-        'belongsToMany',
-        'hasOne',
-        'belongsTo',
-        'morphOne',
-        'morphTo',
-        'morphMany',
-        'morphToMany',
-        'morphedByMany',
-    ];
-
     /**
      * @param  class-string<Model>|Model  $model
      * @return Collection<Attribute>
@@ -46,38 +34,41 @@ class RelationFinder
      */
     public function relations(Model $model): Collection
     {
-        return collect(get_class_methods($model))
-            ->map(fn ($method) => new ReflectionMethod($model, $method))
-            ->reject(fn (ReflectionMethod $method) => $method->isStatic()
-                || $method->isAbstract()
-                || $method->getDeclaringClass()->getName() !== get_class($model)
-            )
-            ->filter(function (ReflectionMethod $method) {
-                $file = new SplFileObject($method->getFileName());
-                $file->seek($method->getStartLine() - 1);
-                $code = '';
+        $class = new ReflectionClass($model);
 
-                while ($file->key() < $method->getEndLine()) {
-                    $code .= $file->current();
-                    $file->next();
-                }
-
-                return collect($this->relationMethods)
-                    ->contains(fn ($relationMethod) => str_contains($code, '$this->'.$relationMethod.'('));
-            })
-            ->map(function (ReflectionMethod $method) use ($model) {
+        return collect($class->getMethods())
+            ->filter(fn (ReflectionMethod $method) => $this->hasRelationReturnType($method, $class))
+            ->map(function(ReflectionMethod $method) use ($model) {
+                /** @var \Illuminate\Database\Eloquent\Relations\BelongsTo $relation */
                 $relation = $method->invoke($model);
-
-                if (! $relation instanceof IlluminateRelation) {
-                    return null;
-                }
 
                 return new Relation(
                     $method->getName(),
-                    Str::afterLast(get_class($relation), '\\'),
-                    get_class($relation->getRelated()),
+                    $method->getReturnType(),
+                    $relation->getRelated()::class,
                 );
-            })
-            ->filter();
+            });
+    }
+
+    protected function hasRelationReturnType(
+        ReflectionMethod $method) {
+
+        if ($method->getReturnType() instanceof ReflectionNamedType) {
+            $returnType = $method->getReturnType()->getName();
+
+            return is_a($returnType, IlluminateRelation::class, true);
+        }
+
+        if ($method->getReturnType() instanceof ReflectionUnionType) {
+            foreach ($method->getReturnType()->getTypes() as $type) {
+                $returnType = $type->getName();
+
+                if (is_a($returnType, IlluminateRelation::class, true)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }
