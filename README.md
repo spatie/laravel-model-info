@@ -141,6 +141,8 @@ ModelInfo::forModel(BlogPost::class)
 
 ## Discovering all models in your application
 
+Using this method we'll discover all methods in your project, no matter in which directory they are stored.
+
 ```php
 use Spatie\ModelInfo\ModelFinder;
 
@@ -151,7 +153,7 @@ $models = ModelFinder::all();
 
 ## Getting information on all model in your application
 
-The `ModelInfo` class can get information about all models in your application
+The `ModelInfo` class can get information about all models in your application.
 
 ```php
 use Spatie\ModelInfo\ModelInfo;
@@ -177,7 +179,7 @@ The returned value will be available on the `extra` property of a `ModelInfo` in
 ```php
 use Spatie\ModelInfo\ModelInfo;
 
-$modelInfo = \Spatie\ModelInfo\ModelInfo::forModel(YourModel::class);
+$modelInfo = ModelInfo::forModel(YourModel::class);
 
 $modelInfo->extra; // returns 'anything you want'
 ```
