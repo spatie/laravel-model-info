@@ -46,6 +46,8 @@ $modelInfo->relations->first()->related;
 Additionally, the package can also discover all the models in your application.
 
 ```php
+use Spatie\ModelInfo\ModelFinder;
+
 // returns a `Illuminate\Support\Collection` containing all
 // the class names of all your models.
 $models = ModelFinder::all(); 
