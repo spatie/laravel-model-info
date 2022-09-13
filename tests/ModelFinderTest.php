@@ -2,11 +2,13 @@
 
 namespace Spatie\ModelInfo\Tests;
 
-use ReflectionClass;
 use Spatie\ModelInfo\ModelFinder;
+use Spatie\ModelInfo\Tests\TestSupport\Models\ExtraModelInfoModel;
+use Spatie\ModelInfo\Tests\TestSupport\Models\Nested\Model\NestedModel;
 use Spatie\ModelInfo\Tests\TestSupport\Models\RelationTestModel;
+use Spatie\ModelInfo\Tests\TestSupport\Models\TestModel;
 
-it('can discover all models in a directory', function () {
+it('can discover all models in a directory', function() {
     $models = ModelFinder::all(
         $this->getTestSupportDirectory(),
         $this->getTestDirectory(),
@@ -15,8 +17,10 @@ it('can discover all models in a directory', function () {
 
     expect($models)->toHaveCount(4);
 
-    /** @var ReflectionClass $firstModel */
-    $firstModel = $models->first();
-
-    expect($firstModel)->toBe(RelationTestModel::class);
+    expect($models->toArray())->toEqualCanonicalizing([
+        NestedModel::class,
+        ExtraModelInfoModel::class,
+        RelationTestModel::class,
+        TestModel::class,
+    ]);
 });
