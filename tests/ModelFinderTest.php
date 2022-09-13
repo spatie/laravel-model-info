@@ -8,7 +8,7 @@ use Spatie\ModelInfo\Tests\TestSupport\Models\Nested\Model\NestedModel;
 use Spatie\ModelInfo\Tests\TestSupport\Models\RelationTestModel;
 use Spatie\ModelInfo\Tests\TestSupport\Models\TestModel;
 
-it('can discover all models in a directory', function() {
+it('can discover all models in a directory', function () {
     $models = ModelFinder::all(
         $this->getTestSupportDirectory(),
         $this->getTestDirectory(),
