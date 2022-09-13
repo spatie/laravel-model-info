@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-model-info` will be documented in this file.
 
+## 1.0.2 - 2022-09-13
+
+### What's Changed
+
+- Support any level of nested directories by @Riley19280 in https://github.com/spatie/laravel-model-info/pull/5
+
+**Full Changelog**: https://github.com/spatie/laravel-model-info/compare/1.0.1...1.0.2
+
 ## 1.0.1 - 2022-09-13
 
 ### What's Changed
