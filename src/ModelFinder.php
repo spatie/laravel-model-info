@@ -37,6 +37,7 @@ class ModelFinder
             })
             ->filter()
             ->filter(fn (ReflectionClass $class) => $class->isSubclassOf(Model::class))
+            ->filter(fn (ReflectionClass $class) => !$class->isAbstract())
             ->map(fn (ReflectionClass $reflectionClass) => $reflectionClass->getName());
     }
 
