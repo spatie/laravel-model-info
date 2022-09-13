@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-model-info` will be documented in this file.
 
+## 1.0.1 - 2022-09-13
+
+### What's Changed
+
+- Bump aglipanci/laravel-pint-action from 0.1.0 to 1.0.0 by @dependabot in https://github.com/spatie/laravel-model-info/pull/3
+- Handle abstract model classes by @Riley19280 in https://github.com/spatie/laravel-model-info/pull/4
+
+### New Contributors
+
+- @dependabot made their first contribution in https://github.com/spatie/laravel-model-info/pull/3
+- @Riley19280 made their first contribution in https://github.com/spatie/laravel-model-info/pull/4
+
+**Full Changelog**: https://github.com/spatie/laravel-model-info/compare/1.0.0...1.0.1
+
 ## 1.0.0 - 2022-09-07
 
 **Full Changelog**: https://github.com/spatie/laravel-model-info/compare/0.0.5...1.0.0
