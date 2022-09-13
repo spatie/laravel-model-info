@@ -4,7 +4,7 @@ namespace Spatie\ModelInfo\Tests;
 
 use ReflectionClass;
 use Spatie\ModelInfo\ModelFinder;
-use Spatie\ModelInfo\Tests\TestSupport\Models\ExtraModelInfoModel;
+use Spatie\ModelInfo\Tests\TestSupport\Models\RelationTestModel;
 
 it('can discover all models in a directory', function () {
     $models = ModelFinder::all(
@@ -13,10 +13,10 @@ it('can discover all models in a directory', function () {
         "Spatie\ModelInfo\Tests",
     );
 
-    expect($models)->toHaveCount(3);
+    expect($models)->toHaveCount(4);
 
     /** @var ReflectionClass $firstModel */
     $firstModel = $models->first();
 
-    expect($firstModel)->toBe(ExtraModelInfoModel::class);
+    expect($firstModel)->toBe(RelationTestModel::class);
 });
