@@ -6,8 +6,9 @@ use Error;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use ReflectionClass;
 use SplFileInfo;
 
@@ -23,9 +24,7 @@ class ModelFinder
         $basePath ??= base_path();
         $baseNamespace ??= '';
 
-        $globPattern = realpath($directory).'/**/*.php';
-
-        return collect(File::glob($globPattern))
+        return collect(static::getFilesRecursively($directory))
             ->map(fn (string $class) => new SplFileInfo($class))
             ->map(fn (SplFileInfo $file) => self::fullQualifiedClassNameFromFile($file, $basePath, $baseNamespace))
             ->map(function (string $class) {
@@ -56,5 +55,20 @@ class ModelFinder
                 ['\\', app()->getNamespace()],
             )
             ->prepend($baseNamespace.'\\');
+    }
+
+    protected static function getFilesRecursively(string $path): array
+    {
+        $rii = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path));
+        $files = [];
+
+        foreach ($rii as $file) {
+            if ($file->isDir()) {
+                continue;
+            }
+            $files[] = $file->getPathname();
+        }
+
+        return $files;
     }
 }
