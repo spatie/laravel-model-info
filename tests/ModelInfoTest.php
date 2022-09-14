@@ -5,6 +5,8 @@ use Illuminate\Foundation\Auth\User;
 use Spatie\ModelInfo\ModelInfo;
 use Spatie\ModelInfo\Tests\TestSupport\Models\ExtraModelInfoModel;
 use Spatie\ModelInfo\Tests\TestSupport\Models\RelationTestModel;
+use Spatie\ModelInfo\Tests\TestSupport\Models\TraitTestModel;
+use Spatie\ModelInfo\Tests\TestSupport\Traits\TestTrait;
 
 it('can get meta information about a model', function () {
     $modelInfo = ModelInfo::forModel(RelationTestModel::class);
@@ -23,7 +25,7 @@ it('can get meta information about all models', function () {
         "Spatie\ModelInfo\Tests",
     );
 
-    expect($modelInfo)->toHaveCount(4);
+    expect($modelInfo)->toHaveCount(5);
     expect($modelInfo->first())->toBeInstanceOf(ModelInfo::class);
 });
 
@@ -31,6 +33,12 @@ it('can get extra info from a model', function () {
     $modelInfo = ModelInfo::forModel(ExtraModelInfoModel::class);
 
     expect($modelInfo->extra)->toBe('extra info');
+});
+
+it('can get traits from a model', function () {
+    $modelInfo = ModelInfo::forModel(TraitTestModel::class);
+
+    expect($modelInfo->traits->first())->toBe(TestTrait::class);
 });
 
 it('can get a specific attribute', function () {

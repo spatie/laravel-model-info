@@ -50,6 +50,7 @@ class ModelInfo
             $model->getConnection()->getTablePrefix().$model->getTable(),
             RelationFinder::forModel($model),
             AttributeFinder::forModel($model),
+            self::getTraits($model),
             self::getExtraModelInfo($model),
         );
     }
@@ -61,6 +62,7 @@ class ModelInfo
         public string $tableName,
         public Collection $relations,
         public Collection $attributes,
+        public Collection $traits,
         public mixed $extra = null,
     ) {
     }
@@ -72,6 +74,11 @@ class ModelInfo
         }
 
         return null;
+    }
+
+    protected static function getTraits(Model $model): Collection
+    {
+        return collect(array_values(class_uses($model)));
     }
 
     public function toArray(): array
