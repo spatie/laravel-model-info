@@ -2,6 +2,15 @@
 
 All notable changes to `laravel-model-info` will be documented in this file.
 
+## 1.0.3 - 2022-09-14
+
+### What's Changed
+
+- Return 0-indexed array from ModelFinder by @Riley19280 in https://github.com/spatie/laravel-model-info/pull/6
+- Support for doctrine/dbal 2 by @Riley19280 in https://github.com/spatie/laravel-model-info/pull/7
+
+**Full Changelog**: https://github.com/spatie/laravel-model-info/compare/1.0.2...1.0.3
+
 ## 1.0.2 - 2022-09-13
 
 ### What's Changed
