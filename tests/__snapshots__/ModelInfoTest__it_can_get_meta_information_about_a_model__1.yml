@@ -9,4 +9,5 @@ attributes:
     - { name: name, phpType: string, type: string, increments: false, nullable: false, default: null, primary: false, unique: false, fillable: false, appended: null, cast: null, virtual: false }
     - { name: created_at, phpType: DateTime, type: datetime, increments: false, nullable: true, default: null, primary: false, unique: false, fillable: false, appended: null, cast: datetime, virtual: false }
     - { name: updated_at, phpType: DateTime, type: datetime, increments: false, nullable: true, default: null, primary: false, unique: false, fillable: false, appended: null, cast: datetime, virtual: false }
+traits: {  }
 extra: null
