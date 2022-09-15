@@ -28,8 +28,9 @@
         "pestphp/pest": "^1.21",
         "pestphp/pest-plugin-laravel": "^1.1",
         "phpunit/phpunit": "^9.5",
-        "spatie/pest-plugin-snapshots": "^1.1"}
-,
+        "spatie/pest-plugin-snapshots": "^1.1",
+        "symfony/serializer": "^6"
+    },
     "autoload": {
         "psr-4": {
             "Spatie\\ModelInfo\\": "src"
