@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-model-info` will be documented in this file.
 
+## 1.1.0 - 2022-09-15
+
+### What's Changed
+
+- Add Trait information to model info by @Riley19280 in https://github.com/spatie/laravel-model-info/pull/9
+
+**Full Changelog**: https://github.com/spatie/laravel-model-info/compare/1.0.3...1.1.0
+
 ## 1.0.3 - 2022-09-14
 
 ### What's Changed
