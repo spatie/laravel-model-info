@@ -12,10 +12,13 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use ReflectionClass;
 use ReflectionMethod;
+use Spatie\ModelInfo\Util\RegistersAdditionalTypeMappings;
 use UnitEnum;
 
 class AttributeFinder
 {
+    use RegistersAdditionalTypeMappings;
+
     /**
      * @param  class-string<Model>|Model  $model
      * @return \Illuminate\Support\Collection<Attribute>
@@ -37,6 +40,9 @@ class AttributeFinder
     {
         $schema = $model->getConnection()->getDoctrineSchemaManager();
         $table = $model->getConnection()->getTablePrefix().$model->getTable();
+
+        static::registerTypeMappings($schema->getDatabasePlatform());
+
         $columns = $schema->listTableColumns($table);
         $indexes = $schema->listTableIndexes($table);
 
@@ -100,7 +106,7 @@ class AttributeFinder
             'float' => 'float',
             'binary', 'blob' => 'resource',
             'boolean' => 'bool',
-            'date', 'datetime', 'datetimetz' => 'DateTime',
+            'date', 'datetime', 'datetimetz', 'time' => 'DateTime',
             'array' => 'array',
             'json' => 'mixed',
             'object' => 'object',
