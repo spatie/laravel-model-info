@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-model-info` will be documented in this file.
 
+## 1.2.0 - 2022-09-16
+
+### What's Changed
+
+- Support additional doctrine types by @Riley19280 in https://github.com/spatie/laravel-model-info/pull/10
+
+**Full Changelog**: https://github.com/spatie/laravel-model-info/compare/1.1.0...1.2.0
+
 ## 1.1.0 - 2022-09-15
 
 ### What's Changed
