@@ -64,6 +64,7 @@ class AttributeFinder
                     appended: null,
                     cast: $this->getCastType($column->getName(), $model),
                     virtual: false,
+                    hidden: $this->attributeIsHidden($column->getName(), $model)
                 );
             })
             ->merge($this->getVirtualAttributes($model, $columns));
@@ -219,6 +220,7 @@ class AttributeFinder
                 appended: $model->hasAppended($name),
                 cast: $cast['cast_type'],
                 virtual: true,
+                hidden: $this->attributeIsHidden($name, $model)
             ))
             ->values();
     }
