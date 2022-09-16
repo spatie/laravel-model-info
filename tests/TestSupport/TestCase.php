@@ -18,6 +18,7 @@ class TestCase extends Orchestra
         Schema::create('test_models', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('password');
             $table->timestamps();
         });
 

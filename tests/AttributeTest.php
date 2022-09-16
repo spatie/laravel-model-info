@@ -8,7 +8,7 @@ use function Spatie\Snapshots\assertMatchesSnapshot;
 it('can get the attributes of a model', function () {
     $attributes = AttributeFinder::forModel(new TestModel());
 
-    expect($attributes)->toHaveCount(6);
+    expect($attributes)->toHaveCount(7);
 
     matchesAttributesSnapshot($attributes);
 });
