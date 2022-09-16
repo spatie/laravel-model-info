@@ -9,6 +9,7 @@ use Spatie\ModelInfo\Tests\TestSupport\Models\TraitTestModel;
 use Spatie\ModelInfo\Tests\TestSupport\Traits\TestTrait;
 
 it('can get meta information about a model', function () {
+    ModelInfo::addTypeMapping('time', 'datetime');
     $modelInfo = ModelInfo::forModel(RelationTestModel::class);
 
     $modelInfo = $modelInfo->toArray();
@@ -25,7 +26,7 @@ it('can get meta information about all models', function () {
         "Spatie\ModelInfo\Tests",
     );
 
-    expect($modelInfo)->toHaveCount(5);
+    expect($modelInfo)->toHaveCount(6);
     expect($modelInfo->first())->toBeInstanceOf(ModelInfo::class);
 });
 
