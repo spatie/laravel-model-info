@@ -27,6 +27,15 @@ class TestCase extends Orchestra
             $table->string('name');
             $table->timestamps();
         });
+
+        Schema::create('extended_types_models', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->enum('enum', ['value1', 'value2']);
+            $table->multiPolygon('multiPolygon');
+            $table->point('point');
+            $table->time('time');
+        });
     }
 
     public function getTestSupportDirectory(string $suffix = ''): string
