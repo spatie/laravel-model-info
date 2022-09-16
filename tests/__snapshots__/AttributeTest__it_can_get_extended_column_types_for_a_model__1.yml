@@ -11,6 +11,7 @@
     appended: null
     cast: int
     virtual: false
+    hidden: false
 -
     name: name
     phpType: string
@@ -24,6 +25,7 @@
     appended: null
     cast: null
     virtual: false
+    hidden: false
 -
     name: enum
     phpType: string
@@ -37,6 +39,7 @@
     appended: null
     cast: null
     virtual: false
+    hidden: false
 -
     name: multiPolygon
     phpType: string
@@ -50,6 +53,7 @@
     appended: null
     cast: null
     virtual: false
+    hidden: false
 -
     name: point
     phpType: string
@@ -63,6 +67,7 @@
     appended: null
     cast: null
     virtual: false
+    hidden: false
 -
     name: time
     phpType: DateTime
@@ -76,3 +81,4 @@
     appended: null
     cast: null
     virtual: false
+    hidden: false
