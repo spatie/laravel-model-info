@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-model-info` will be documented in this file.
 
+## 1.3.0 - 2022-09-16
+
+### What's Changed
+
+- Finish implementation of hidden attributes by @Riley19280 in https://github.com/spatie/laravel-model-info/pull/11
+
+**Full Changelog**: https://github.com/spatie/laravel-model-info/compare/1.2.0...1.3.0
+
 ## 1.2.0 - 2022-09-16
 
 ### What's Changed
