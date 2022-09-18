@@ -96,3 +96,17 @@
     cast: accessor
     virtual: true
     hidden: false
+-
+    name: title_lowercase
+    phpType: null
+    type: null
+    increments: false
+    nullable: null
+    default: null
+    primary: null
+    unique: null
+    fillable: false
+    appended: false
+    cast: attribute
+    virtual: true
+    hidden: false

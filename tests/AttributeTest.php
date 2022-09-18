@@ -9,7 +9,7 @@ use function Spatie\Snapshots\assertMatchesSnapshot;
 it('can get the attributes of a model', function () {
     $attributes = AttributeFinder::forModel(new TestModel());
 
-    expect($attributes)->toHaveCount(7);
+    expect($attributes)->toHaveCount(8);
 
     matchesAttributesSnapshot($attributes);
 });
@@ -17,6 +17,7 @@ it('can get the attributes of a model', function () {
 it('can get virtual attribute php types of a model', function () {
     $attributes = AttributeFinder::forModel(new TestModel());
 
+    // Laravel 8 style accessors and mutators
     $titleUppercaseAttr = $attributes->first(fn ($attr) => $attr->name === 'title_uppercase');
     $titleWithoutReturnTypeAttr = $attributes->first(fn ($attr) => $attr->name === 'title_without_return_type');
 
@@ -24,6 +25,13 @@ it('can get virtual attribute php types of a model', function () {
         ->not()->toBeNull()
         ->phpType->toBe('string');
     expect($titleWithoutReturnTypeAttr)
+        ->not()->toBeNull()
+        ->phpType->toBeNull();
+
+    // Laravel 9 style attributes
+    $titleLowercaseAttr = $attributes->first(fn ($attr) => $attr->name === 'title_lowercase');
+
+    expect($titleLowercaseAttr)
         ->not()->toBeNull()
         ->phpType->toBeNull();
 });
