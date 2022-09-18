@@ -20,9 +20,12 @@ it('can get virtual attribute php types of a model', function () {
     $titleUppercaseAttr = $attributes->first(fn ($attr) => $attr->name === 'title_uppercase');
     $titleWithoutReturnTypeAttr = $attributes->first(fn ($attr) => $attr->name === 'title_without_return_type');
 
-    $this->assertNotNull($titleUppercaseAttr);
-    $this->assertEquals('string', $titleUppercaseAttr->phpType);
-    $this->assertEquals(null, $titleWithoutReturnTypeAttr->phpType);
+    expect($titleUppercaseAttr)
+        ->not()->toBeNull()
+        ->phpType->toBe('string');
+    expect($titleWithoutReturnTypeAttr)
+        ->not()->toBeNull()
+        ->phpType->toBeNull();
 });
 
 it('can get extended column types for a model', function () {
