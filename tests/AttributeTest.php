@@ -9,7 +9,7 @@ use function Spatie\Snapshots\assertMatchesSnapshot;
 it('can get the attributes of a model', function () {
     $attributes = AttributeFinder::forModel(new TestModel());
 
-    expect($attributes)->toHaveCount(10);
+    expect($attributes)->toHaveCount(11);
 
     matchesAttributesSnapshot($attributes);
 });
@@ -22,9 +22,11 @@ it('can get virtual attribute php types of a model', function () {
     $titleWithoutReturnTypeAttr = $attributes->first(fn ($attr) => $attr->name === 'title_without_return_type');
 
     expect($titleUppercaseAttr)
+        ->cast->toBe('accessor')
         ->not()->toBeNull()
         ->phpType->toBe('string');
     expect($titleWithoutReturnTypeAttr)
+        ->cast->toBe('accessor')
         ->not()->toBeNull()
         ->phpType->toBeNull();
 
@@ -33,16 +35,27 @@ it('can get virtual attribute php types of a model', function () {
     $passwordMutatorWithoutTypeHintAttr = $attributes->first(fn ($attr) => $attr->name === 'trimmed_and_encrypted_password');
 
     expect($passwordMutatorAttr)
+        ->cast->toBe('mutator')
         ->not()->toBeNull()
         ->phpType->toBe('string');
     expect($passwordMutatorWithoutTypeHintAttr)
+        ->cast->toBe('mutator')
         ->not()->toBeNull()
         ->phpType->toBeNull();
+
+    // Laravel 8 style accessor & mutators
+    $dottedNameAttr = $attributes->first(fn ($attr) => $attr->name === 'dotted_name');
+
+    expect($dottedNameAttr)
+        ->cast->toBe('attribute')
+        ->not()->toBeNull()
+        ->phpType->toBe('string');
 
     // Laravel 9 style attributes
     $titleLowercaseAttr = $attributes->first(fn ($attr) => $attr->name === 'title_lowercase');
 
     expect($titleLowercaseAttr)
+        ->cast->toBe('attribute')
         ->not()->toBeNull()
         ->phpType->toBeNull();
 });

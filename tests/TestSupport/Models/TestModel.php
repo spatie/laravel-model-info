@@ -37,4 +37,14 @@ class TestModel extends Model
             get: fn ($value) => strtolower($value)
         );
     }
+
+    public function getDottedNameAttribute(): string
+    {
+        return str_replace(' ', '.', $this->name);
+    }
+
+    public function setDottedNameAttribute(string $value)
+    {
+        $this->name = str_replace('.', ' ', $value);
+    }
 }

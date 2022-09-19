@@ -138,3 +138,17 @@
     cast: attribute
     virtual: true
     hidden: false
+-
+    name: dotted_name
+    phpType: string
+    type: null
+    increments: false
+    nullable: null
+    default: null
+    primary: null
+    unique: null
+    fillable: false
+    appended: false
+    cast: attribute
+    virtual: true
+    hidden: false
