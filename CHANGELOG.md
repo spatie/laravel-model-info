@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-model-info` will be documented in this file.
 
+## 1.4.0 - 2022-09-19
+
+### What's Changed
+
+- Detect mutators by @pikant in https://github.com/spatie/laravel-model-info/pull/13
+
+### New Contributors
+
+- @pikant made their first contribution in https://github.com/spatie/laravel-model-info/pull/13
+
+**Full Changelog**: https://github.com/spatie/laravel-model-info/compare/1.3.0...1.4.0
+
 ## 1.3.0 - 2022-09-16
 
 ### What's Changed
