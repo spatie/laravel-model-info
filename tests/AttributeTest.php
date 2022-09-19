@@ -14,10 +14,12 @@ it('can get the attributes of a model', function () {
     matchesAttributesSnapshot($attributes);
 });
 
-it('can get virtual attribute php types of a model', function () {
+/**
+ * @see https://laravel.com/docs/8.x/eloquent-mutators#defining-an-accessor
+ */
+it('can get the accessor attributes of a model', function () {
     $attributes = AttributeFinder::forModel(new TestModel());
 
-    // Laravel 8 style accessors
     $titleUppercaseAttr = $attributes->first(fn ($attr) => $attr->name === 'title_uppercase');
     $titleWithoutReturnTypeAttr = $attributes->first(fn ($attr) => $attr->name === 'title_without_return_type');
 
@@ -29,8 +31,14 @@ it('can get virtual attribute php types of a model', function () {
         ->cast->toBe('accessor')
         ->not()->toBeNull()
         ->phpType->toBeNull();
+});
 
-    // Laravel 8 style mutators
+/**
+ * @see https://laravel.com/docs/8.x/eloquent-mutators#defining-a-mutator
+ */
+it('can get the mutator attributes of a model', function () {
+    $attributes = AttributeFinder::forModel(new TestModel());
+
     $passwordMutatorAttr = $attributes->first(fn ($attr) => $attr->name === 'encrypted_password');
     $passwordMutatorWithoutTypeHintAttr = $attributes->first(fn ($attr) => $attr->name === 'trimmed_and_encrypted_password');
 
@@ -42,16 +50,27 @@ it('can get virtual attribute php types of a model', function () {
         ->cast->toBe('mutator')
         ->not()->toBeNull()
         ->phpType->toBeNull();
+});
 
-    // Laravel 8 style accessor & mutators
+it('can handle accessor-mutator combinations', function () {
+    $attributes = AttributeFinder::forModel(new TestModel());
+
     $dottedNameAttr = $attributes->first(fn ($attr) => $attr->name === 'dotted_name');
 
     expect($dottedNameAttr)
         ->cast->toBe('attribute')
         ->not()->toBeNull()
         ->phpType->toBe('string');
+    expect($attributes->where('name', 'dotted_name')->count())
+        ->toBe(1);
+});
 
-    // Laravel 9 style attributes
+/**
+ * @see https://laravel.com/docs/9.x/eloquent-mutators#accessors-and-mutators
+ */
+it('can handle virtual attributes of a model', function () {
+    $attributes = AttributeFinder::forModel(new TestModel());
+
     $titleLowercaseAttr = $attributes->first(fn ($attr) => $attr->name === 'title_lowercase');
 
     expect($titleLowercaseAttr)
