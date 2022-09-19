@@ -21,6 +21,16 @@ class TestModel extends Model
         return $this->title;
     }
 
+    public function setEncryptedPasswordAttribute(string $value)
+    {
+        $this->password = bcrypt($value);
+    }
+
+    public function setTrimmedAndEncryptedPasswordAttribute($value)
+    {
+        $this->password = bcrypt(trim($value));
+    }
+
     public function titleLowercase(): Attribute
     {
         return Attribute::make(

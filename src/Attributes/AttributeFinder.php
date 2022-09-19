@@ -195,6 +195,15 @@ class AttributeFinder
                     ];
                 }
 
+                if (preg_match('/^set(.*)Attribute$/', $method->getName(), $matches) === 1) {
+                    return [
+                        Str::snake($matches[1]) => [
+                            'cast_type' => 'mutator',
+                            'php_type' => collect($method->getParameters())->firstWhere('name', 'value')?->getType()?->__toString(),
+                        ],
+                    ];
+                }
+
                 if ($model->hasAttributeMutator($method->getName())) {
                     return [
                         Str::snake($method->getName()) => [

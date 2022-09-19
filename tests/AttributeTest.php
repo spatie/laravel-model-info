@@ -9,7 +9,7 @@ use function Spatie\Snapshots\assertMatchesSnapshot;
 it('can get the attributes of a model', function () {
     $attributes = AttributeFinder::forModel(new TestModel());
 
-    expect($attributes)->toHaveCount(8);
+    expect($attributes)->toHaveCount(10);
 
     matchesAttributesSnapshot($attributes);
 });
@@ -17,7 +17,7 @@ it('can get the attributes of a model', function () {
 it('can get virtual attribute php types of a model', function () {
     $attributes = AttributeFinder::forModel(new TestModel());
 
-    // Laravel 8 style accessors and mutators
+    // Laravel 8 style accessors
     $titleUppercaseAttr = $attributes->first(fn ($attr) => $attr->name === 'title_uppercase');
     $titleWithoutReturnTypeAttr = $attributes->first(fn ($attr) => $attr->name === 'title_without_return_type');
 
@@ -25,6 +25,17 @@ it('can get virtual attribute php types of a model', function () {
         ->not()->toBeNull()
         ->phpType->toBe('string');
     expect($titleWithoutReturnTypeAttr)
+        ->not()->toBeNull()
+        ->phpType->toBeNull();
+
+    // Laravel 8 style mutators
+    $passwordMutatorAttr = $attributes->first(fn ($attr) => $attr->name === 'encrypted_password');
+    $passwordMutatorWithoutTypeHintAttr = $attributes->first(fn ($attr) => $attr->name === 'trimmed_and_encrypted_password');
+
+    expect($passwordMutatorAttr)
+        ->not()->toBeNull()
+        ->phpType->toBe('string');
+    expect($passwordMutatorWithoutTypeHintAttr)
         ->not()->toBeNull()
         ->phpType->toBeNull();
 
