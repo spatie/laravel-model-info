@@ -9,20 +9,74 @@ use function Spatie\Snapshots\assertMatchesSnapshot;
 it('can get the attributes of a model', function () {
     $attributes = AttributeFinder::forModel(new TestModel());
 
-    expect($attributes)->toHaveCount(7);
+    expect($attributes)->toHaveCount(11);
 
     matchesAttributesSnapshot($attributes);
 });
 
-it('can get virtual attribute php types of a model', function () {
+/**
+ * @see https://laravel.com/docs/8.x/eloquent-mutators#defining-an-accessor
+ */
+it('can get the accessor attributes of a model', function () {
     $attributes = AttributeFinder::forModel(new TestModel());
 
     $titleUppercaseAttr = $attributes->first(fn ($attr) => $attr->name === 'title_uppercase');
     $titleWithoutReturnTypeAttr = $attributes->first(fn ($attr) => $attr->name === 'title_without_return_type');
 
-    $this->assertNotNull($titleUppercaseAttr);
-    $this->assertEquals('string', $titleUppercaseAttr->phpType);
-    $this->assertEquals(null, $titleWithoutReturnTypeAttr->phpType);
+    expect($titleUppercaseAttr)
+        ->cast->toBe('accessor')
+        ->not()->toBeNull()
+        ->phpType->toBe('string');
+    expect($titleWithoutReturnTypeAttr)
+        ->cast->toBe('accessor')
+        ->not()->toBeNull()
+        ->phpType->toBeNull();
+});
+
+/**
+ * @see https://laravel.com/docs/8.x/eloquent-mutators#defining-a-mutator
+ */
+it('can get the mutator attributes of a model', function () {
+    $attributes = AttributeFinder::forModel(new TestModel());
+
+    $passwordMutatorAttr = $attributes->first(fn ($attr) => $attr->name === 'encrypted_password');
+    $passwordMutatorWithoutTypeHintAttr = $attributes->first(fn ($attr) => $attr->name === 'trimmed_and_encrypted_password');
+
+    expect($passwordMutatorAttr)
+        ->cast->toBe('mutator')
+        ->not()->toBeNull()
+        ->phpType->toBe('string');
+    expect($passwordMutatorWithoutTypeHintAttr)
+        ->cast->toBe('mutator')
+        ->not()->toBeNull()
+        ->phpType->toBeNull();
+});
+
+it('can handle accessor-mutator combinations', function () {
+    $attributes = AttributeFinder::forModel(new TestModel());
+
+    $dottedNameAttr = $attributes->first(fn ($attr) => $attr->name === 'dotted_name');
+
+    expect($dottedNameAttr)
+        ->cast->toBe('attribute')
+        ->not()->toBeNull()
+        ->phpType->toBe('string');
+    expect($attributes->where('name', 'dotted_name')->count())
+        ->toBe(1);
+});
+
+/**
+ * @see https://laravel.com/docs/9.x/eloquent-mutators#accessors-and-mutators
+ */
+it('can handle virtual attributes of a model', function () {
+    $attributes = AttributeFinder::forModel(new TestModel());
+
+    $titleLowercaseAttr = $attributes->first(fn ($attr) => $attr->name === 'title_lowercase');
+
+    expect($titleLowercaseAttr)
+        ->cast->toBe('attribute')
+        ->not()->toBeNull()
+        ->phpType->toBeNull();
 });
 
 it('can get extended column types for a model', function () {

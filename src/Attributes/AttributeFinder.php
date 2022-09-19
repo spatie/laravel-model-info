@@ -181,34 +181,41 @@ class AttributeFinder
         $class = new ReflectionClass($model);
 
         return collect($class->getMethods())
-            ->reject(fn (ReflectionMethod $method) => $method->isStatic()
-                || $method->isAbstract()
-                || $method->getDeclaringClass()->getName() !== get_class($model)
+            ->reject(
+                fn (ReflectionMethod $method) => $method->isStatic()
+                    || $method->isAbstract()
+                    || $method->getDeclaringClass()->getName() !== get_class($model)
             )
-            ->mapWithKeys(function (ReflectionMethod $method) use ($model) {
+            ->map(function (ReflectionMethod $method) use ($model) {
                 if (preg_match('/^get(.*)Attribute$/', $method->getName(), $matches) === 1) {
                     return [
-                        Str::snake($matches[1]) => [
-                            'cast_type' => 'accessor',
-                            'php_type' => $method->getReturnType()?->getName(),
-                        ],
+                        'name' => Str::snake($matches[1]),
+                        'cast_type' => 'accessor',
+                        'php_type' => $method->getReturnType()?->getName(),
+                    ];
+                }
+
+                if (preg_match('/^set(.*)Attribute$/', $method->getName(), $matches) === 1) {
+                    return [
+                        'name' => Str::snake($matches[1]),
+                        'cast_type' => 'mutator',
+                        'php_type' => collect($method->getParameters())->firstWhere('name', 'value')?->getType()?->__toString(),
                     ];
                 }
 
                 if ($model->hasAttributeMutator($method->getName())) {
                     return [
-                        Str::snake($method->getName()) => [
-                            'cast_type' => 'attribute',
-                            'php_type' => null,
-                        ],
+                        'name' => Str::snake($method->getName()),
+                        'cast_type' => 'attribute',
+                        'php_type' => null,
                     ];
                 }
 
                 return [];
             })
-            ->reject(fn ($cast, $name) => collect($columns)->has($name))
-            ->map(fn ($cast, $name) => new Attribute(
-                name: $name,
+            ->reject(fn ($cast) => ! isset($cast['name']) || collect($columns)->has($cast['name']))
+            ->map(fn ($cast) => new Attribute(
+                name: $cast['name'],
                 phpType: $cast['php_type'] ?? null,
                 type: null,
                 increments: false,
@@ -216,12 +223,28 @@ class AttributeFinder
                 default: null,
                 primary: null,
                 unique: null,
-                fillable: $model->isFillable($name),
-                appended: $model->hasAppended($name),
+                fillable: $model->isFillable($cast['name']),
+                appended: $model->hasAppended($cast['name']),
                 cast: $cast['cast_type'],
                 virtual: true,
-                hidden: $this->attributeIsHidden($name, $model)
+                hidden: $this->attributeIsHidden($cast['name'], $model)
             ))
-            ->values();
+            // Convert duplicate entries for accessor-mutator combinations
+            ->groupBy('name')
+            ->flatMap(function (Collection $items) {
+                if ($items->count() !== 2) {
+                    return $items;
+                }
+
+                if (! $items->firstWhere('cast', 'accessor') || ! $items->firstWhere('cast', 'mutator')) {
+                    return $items;
+                }
+
+                $attribute = $items->first();
+                $attribute->phpType = $items[0]->phpType ?? $items[1]->phpType;
+                $attribute->cast = 'attribute';
+
+                return [$attribute];
+            });
     }
 }
