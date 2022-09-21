@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-model-info` will be documented in this file.
 
+## 1.4.1 - 2022-09-21
+
+### What's Changed
+
+- Add Citext support so package works w/ citext types from tpetry/laravel-postgres-enhanced. by @patrickcurl in https://github.com/spatie/laravel-model-info/pull/15
+
+### New Contributors
+
+- @patrickcurl made their first contribution in https://github.com/spatie/laravel-model-info/pull/15
+
+**Full Changelog**: https://github.com/spatie/laravel-model-info/compare/1.4.0...1.4.1
+
 ## 1.4.0 - 2022-09-19
 
 ### What's Changed
