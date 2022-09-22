@@ -19,7 +19,7 @@ trait RegistersAdditionalTypeMappings
         'point' => 'string',
         'polygon' => 'string',
         'sysname' => 'string',
-        'citext' => 'string,
+        'citext' => 'string',
     ];
 
     /**
