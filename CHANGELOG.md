@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-model-info` will be documented in this file.
 
+## 1.4.3 - 2023-01-25
+
+- support L10
+
 ## 1.4.2 - 2022-09-22
 
 - fix syntax error
