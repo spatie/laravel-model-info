@@ -47,4 +47,14 @@ class TestModel extends Model
     {
         $this->name = str_replace('.', ' ', $value);
     }
+
+    public function setAttribute($key, $value)
+    {
+        parent::setAttribute($key, $value);
+    }
+
+    public function getAttribute($key)
+    {
+        parent::getAttribute($key);
+    }
 }
