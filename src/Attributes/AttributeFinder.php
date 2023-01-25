@@ -187,7 +187,7 @@ class AttributeFinder
                     || $method->getDeclaringClass()->getName() !== get_class($model)
             )
             ->map(function (ReflectionMethod $method) use ($model) {
-                if (preg_match('/^get(.*)Attribute$/', $method->getName(), $matches) === 1) {
+                if (preg_match('/(?<=^|;)get([^;]+?)Attribute(;|$)/', $method->getName(), $matches) === 1) {
                     return [
                         'name' => Str::snake($matches[1]),
                         'cast_type' => 'accessor',
@@ -195,7 +195,7 @@ class AttributeFinder
                     ];
                 }
 
-                if (preg_match('/^set(.*)Attribute$/', $method->getName(), $matches) === 1) {
+                if (preg_match('/(?<=^|;)set([^;]+?)Attribute(;|$)/', $method->getName(), $matches) === 1) {
                     return [
                         'name' => Str::snake($matches[1]),
                         'cast_type' => 'mutator',
