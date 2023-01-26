@@ -4,6 +4,7 @@ namespace Spatie\ModelInfo\Tests\TestSupport\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TestModel extends Model
 {
@@ -56,5 +57,10 @@ class TestModel extends Model
     public function getAttribute($key)
     {
         parent::getAttribute($key);
+    }
+
+    public function exceptionRelation(): BelongsTo
+    {
+        throw new \Exception('This relation throws an exception');
     }
 }

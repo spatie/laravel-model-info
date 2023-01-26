@@ -38,14 +38,19 @@ class RelationFinder
             ->filter(fn (ReflectionMethod $method) => $this->hasRelationReturnType($method))
             ->map(function (ReflectionMethod $method) use ($model) {
                 /** @var \Illuminate\Database\Eloquent\Relations\BelongsTo $relation */
-                $relation = $method->invoke($model);
+                try {
+                    $relation = $method->invoke($model);
+                } catch (\Throwable $e) {
+                    return;
+                }
 
                 return new Relation(
                     $method->getName(),
                     $method->getReturnType(),
                     $relation->getRelated()::class,
                 );
-            });
+            })
+            ->filter(fn ($relation) => $relation instanceof Relation);
     }
 
     protected function hasRelationReturnType(
