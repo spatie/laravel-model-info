@@ -4,6 +4,7 @@ namespace Spatie\ModelInfo;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use ReflectionClass;
 use Spatie\ModelInfo\Attributes\Attribute;
 use Spatie\ModelInfo\Attributes\AttributeFinder;
@@ -26,10 +27,16 @@ class ModelInfo
         string $basePath = null,
         string $baseNamespace = null
     ): Collection {
-        return ModelFinder::all($directory, $basePath, $baseNamespace)
-            ->map(function (string $model) {
-                return self::forModel($model);
-            });
+        return Cache::remember(
+            config('model-info.cache.key'),
+            config('model-info.cache.expiration_time'),
+            function () use ($directory, $basePath, $baseNamespace) {
+                return ModelFinder::all($directory, $basePath, $baseNamespace)
+                    ->map(function (string $model) {
+                        return self::forModel($model);
+                    });
+            }
+        );
     }
 
     /**
@@ -44,6 +51,12 @@ class ModelInfo
 
         if (is_string($model)) {
             $model = new $model;
+        }
+
+        if($cachedModelInfo = Cache::get(config('model-info.cache.key'))
+            ?->first(fn(ModelInfo $modelInfo) => $modelInfo->class === $model::class)
+        ) {
+            return $cachedModelInfo;
         }
 
         static::registerTypeMappings($model->getConnection()->getDoctrineSchemaManager()->getDatabasePlatform());
