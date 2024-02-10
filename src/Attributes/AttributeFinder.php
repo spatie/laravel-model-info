@@ -166,6 +166,7 @@ class AttributeFinder
     protected function getCastsWithDates(Model $model): Collection
     {
         return collect($model->getDates())
+            ->whereNotNull()
             ->flip()
             ->map(fn () => 'datetime')
             ->merge($model->getCasts());
