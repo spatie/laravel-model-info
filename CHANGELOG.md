@@ -2,6 +2,22 @@
 
 All notable changes to `laravel-model-info` will be documented in this file.
 
+## 1.4.4 - 2024-02-12
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 1.3.5 to 1.3.6 by @dependabot in https://github.com/spatie/laravel-model-info/pull/24
+* Bump dependabot/fetch-metadata from 1.3.6 to 1.4.0 by @dependabot in https://github.com/spatie/laravel-model-info/pull/27
+* Bump dependabot/fetch-metadata from 1.4.0 to 1.5.1 by @dependabot in https://github.com/spatie/laravel-model-info/pull/29
+* Bump dependabot/fetch-metadata from 1.5.1 to 1.6.0 by @dependabot in https://github.com/spatie/laravel-model-info/pull/30
+* The bug that occurred when any timestamp was defined as null by @MertcanDinler in https://github.com/spatie/laravel-model-info/pull/34
+
+### New Contributors
+
+* @MertcanDinler made their first contribution in https://github.com/spatie/laravel-model-info/pull/34
+
+**Full Changelog**: https://github.com/spatie/laravel-model-info/compare/1.4.3...1.4.4
+
 ## 1.4.3 - 2023-01-25
 
 - support L10
