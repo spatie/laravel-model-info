@@ -16,15 +16,12 @@ class ModelInfo
     use RegistersAdditionalTypeMappings;
 
     /**
-     * @param  string|null  $directory
-     * @param  string|null  $basePath
-     * @param  string|null  $baseNamespace
      * @return Collection<ModelInfo>
      */
     public static function forAllModels(
-        string $directory = null,
-        string $basePath = null,
-        string $baseNamespace = null
+        ?string $directory = null,
+        ?string $basePath = null,
+        ?string $baseNamespace = null
     ): Collection {
         return ModelFinder::all($directory, $basePath, $baseNamespace)
             ->map(function (string $model) {
@@ -34,7 +31,6 @@ class ModelInfo
 
     /**
      * @param  class-string<Model>|Model|ReflectionClass  $model
-     * @return self
      */
     public static function forModel(string|Model|ReflectionClass $model): self
     {

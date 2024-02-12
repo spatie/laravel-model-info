@@ -33,7 +33,6 @@ class AttributeFinder
     }
 
     /**
-     * @param  Model  $model
      * @return \Illuminate\Support\Collection<Attribute>
      */
     protected function attributes(Model $model): Collection
@@ -93,9 +92,6 @@ class AttributeFinder
      * Mappings are defined based on this doctrine documentation:
      *
      * @link https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/types.html#detection-of-database-types
-     *
-     * @param  Column  $column
-     * @return string
      */
     protected function getPhpType(Column $column): string
     {
@@ -127,7 +123,6 @@ class AttributeFinder
     }
 
     /**
-     * @param  string  $column
      * @param  Index[]  $indexes
      * @return Collection<int, Index>
      */
@@ -173,7 +168,6 @@ class AttributeFinder
     }
 
     /**
-     * @param  Model  $model
      * @param  array<Column>  $columns
      * @return Collection<Attribute>
      */

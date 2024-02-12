@@ -27,7 +27,6 @@ class RelationFinder
     }
 
     /**
-     * @param  Model  $model
      * @return Collection<Relation>
      */
     public function relations(Model $model): Collection

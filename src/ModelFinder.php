@@ -16,9 +16,9 @@ class ModelFinder
 {
     /** @return Collection<class-string<Model>> */
     public static function all(
-        string $directory = null,
-        string $basePath = null,
-        string $baseNamespace = null,
+        ?string $directory = null,
+        ?string $basePath = null,
+        ?string $baseNamespace = null,
     ): Collection {
         $directory ??= app_path();
         $basePath ??= base_path();

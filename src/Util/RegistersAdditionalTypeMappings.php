@@ -25,8 +25,6 @@ trait RegistersAdditionalTypeMappings
     /**
      * Register the custom Doctrine type mappings available in laravel
      *
-     * @param  \Doctrine\DBAL\Platforms\AbstractPlatform  $platform
-     * @return void
      *
      * @throws Exception
      *
