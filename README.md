@@ -1,8 +1,6 @@
 # Get information about the models in your Laravel app
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-model-info.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-model-info)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/spatie/laravel-model-info/run-tests?label=tests)](https://github.com/spatie/laravel-model-info/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/spatie/laravel-model-info/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/spatie/laravel-model-info/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-model-info.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-model-info)
 
 Using this package you can determine which attributes and relations your model classes have.
