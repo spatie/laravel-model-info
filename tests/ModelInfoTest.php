@@ -26,7 +26,7 @@ it('can get meta information about all models', function () {
         "Spatie\ModelInfo\Tests",
     );
 
-    expect($modelInfo)->toHaveCount(6);
+    expect($modelInfo)->toHaveCount(5);
     expect($modelInfo->first())->toBeInstanceOf(ModelInfo::class);
 });
 

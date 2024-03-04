@@ -37,33 +37,33 @@ class AttributeFinder
      */
     protected function attributes(Model $model): Collection
     {
-        $schema = $model->getConnection()->getDoctrineSchemaManager();
+        $schema = $model->getConnection()->getSchemaBuilder();
         $table = $model->getConnection()->getTablePrefix().$model->getTable();
 
-        static::registerTypeMappings($schema->getDatabasePlatform());
+       // static::registerTypeMappings($schema->getDatabasePlatform());
 
-        $columns = $schema->listTableColumns($table);
-        $indexes = $schema->listTableIndexes($table);
+        $columns = $schema->getColumns($table);
+        $indexes = $schema->getIndexes($table);
 
         return collect($columns)
             ->values()
-            ->map(function (Column $column) use ($model, $indexes) {
-                $columnIndexes = $this->getIndexes($column->getName(), $indexes);
+            ->map(function (array $column) use ($model, $indexes) {
+                $columnIndexes = $this->getIndexes($column['name'], $indexes);
 
                 return new Attribute(
-                    name: $column->getName(),
-                    phpType: $this->getPhpType($column),
-                    type: $this->getColumnType($column),
-                    increments: $column->getAutoincrement(),
-                    nullable: ! $column->getNotnull(),
-                    default: $this->getColumnDefault($column, $model),
-                    primary: $columnIndexes->contains(fn (Index $index) => $index->isPrimary()),
-                    unique: $columnIndexes->contains(fn (Index $index) => $index->isUnique()),
-                    fillable: $model->isFillable($column->getName()),
+                    name: $column['name'],
+                    phpType: $column['type'],
+                    type: $column['type_name'],
+                    increments: $column['auto_increment'],
+                    nullable: $column['nullable'],
+                    default: $column['default'],
+                    primary: $columnIndexes->contains(fn (array $index) => $index['primary']),
+                    unique: $columnIndexes->contains(fn (array $index) => $index['unique']),
+                    fillable: $model->isFillable($column['name']),
                     appended: null,
-                    cast: $this->getCastType($column->getName(), $model),
+                    cast: $this->getCastType($column['name'], $model),
                     virtual: false,
-                    hidden: $this->attributeIsHidden($column->getName(), $model)
+                    hidden: $this->attributeIsHidden($column['name'], $model)
                 );
             })
             ->merge($this->getVirtualAttributes($model, $columns));
@@ -129,7 +129,7 @@ class AttributeFinder
     protected function getIndexes(string $column, array $indexes)
     {
         return collect($indexes)
-            ->filter(fn (Index $index) => count($index->getColumns()) === 1 && $index->getColumns()[0] === $column);
+            ->filter(fn (array $index) => count($index['columns']) === 1 && $index['columns'][0] === $column);
     }
 
     protected function attributeIsHidden(string $attribute, Model $model): bool

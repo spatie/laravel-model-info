@@ -17,7 +17,7 @@ it('can discover all models in a directory', function () {
         "Spatie\ModelInfo\Tests",
     );
 
-    expect($models)->toHaveCount(6);
+    expect($models)->toHaveCount(5);
 
     expect($models->toArray())->toEqualCanonicalizing([
         NestedModel::class,
@@ -25,6 +25,5 @@ it('can discover all models in a directory', function () {
         RelationTestModel::class,
         TestModel::class,
         TraitTestModel::class,
-        ExtendedTypesModel::class,
     ]);
 });

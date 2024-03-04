@@ -80,15 +80,6 @@ it('can handle virtual attributes of a model', function () {
         ->phpType->toBeNull();
 });
 
-it('can get extended column types for a model', function () {
-    AttributeFinder::addTypeMapping('time', 'datetime');
-    $attributes = AttributeFinder::forModel(new ExtendedTypesModel());
-
-    expect($attributes)->toHaveCount(6);
-
-    matchesAttributesSnapshot($attributes);
-});
-
 function matchesAttributesSnapshot(Collection $attributes)
 {
     $attributes = $attributes->map->toArray();

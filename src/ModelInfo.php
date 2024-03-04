@@ -42,8 +42,6 @@ class ModelInfo
             $model = new $model;
         }
 
-        static::registerTypeMappings($model->getConnection()->getDoctrineSchemaManager()->getDatabasePlatform());
-
         return new self(
             $model::class,
             (new ReflectionClass($model))->getFileName(),
