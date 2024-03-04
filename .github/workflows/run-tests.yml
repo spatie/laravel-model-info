@@ -11,13 +11,12 @@ on:
 jobs:
   test:
     runs-on: ${{ matrix.os }}
-
     strategy:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
         php: [8.2, 8.1]
-        laravel: [11.*']
+        laravel: [11.*]
         stability: [prefer-stable]
         include:
           - laravel: 11.*
