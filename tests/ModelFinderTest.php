@@ -3,7 +3,6 @@
 namespace Spatie\ModelInfo\Tests;
 
 use Spatie\ModelInfo\ModelFinder;
-use Spatie\ModelInfo\Tests\TestSupport\Models\ExtendedTypesModel;
 use Spatie\ModelInfo\Tests\TestSupport\Models\ExtraModelInfoModel;
 use Spatie\ModelInfo\Tests\TestSupport\Models\Nested\Model\NestedModel;
 use Spatie\ModelInfo\Tests\TestSupport\Models\RelationTestModel;

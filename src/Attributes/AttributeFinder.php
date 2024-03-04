@@ -40,7 +40,7 @@ class AttributeFinder
         $schema = $model->getConnection()->getSchemaBuilder();
         $table = $model->getConnection()->getTablePrefix().$model->getTable();
 
-       // static::registerTypeMappings($schema->getDatabasePlatform());
+        // static::registerTypeMappings($schema->getDatabasePlatform());
 
         $columns = $schema->getColumns($table);
         $indexes = $schema->getIndexes($table);
