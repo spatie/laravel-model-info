@@ -2,6 +2,19 @@
 
 All notable changes to `laravel-model-info` will be documented in this file.
 
+## 2.0.0 - 2024-03-04
+
+### What's Changed
+
+* Laravel 11.x Compatibility by @laravel-shift in https://github.com/spatie/laravel-model-info/pull/35
+* Bump aglipanci/laravel-pint-action from 1.0.0 to 2.3.1 by @dependabot in https://github.com/spatie/laravel-model-info/pull/33
+
+### New Contributors
+
+* @laravel-shift made their first contribution in https://github.com/spatie/laravel-model-info/pull/35
+
+**Full Changelog**: https://github.com/spatie/laravel-model-info/compare/1.4.4...2.0.0
+
 ## 1.4.4 - 2024-02-12
 
 ### What's Changed
