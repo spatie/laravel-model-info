@@ -35,8 +35,13 @@ class TestCase extends Orchestra
             if (method_exists($table, 'multiPolygon')) {
                 $table->multiPolygon('multiPolygon');
             }
-            $table->point('point');
-            $table->time('time');
+            if (method_exists($table, 'point')) {
+                $table->point('point');
+            }
+
+            if (method_exists($table, 'time')) {
+                $table->uuid('time');
+            }
         });
     }
 
