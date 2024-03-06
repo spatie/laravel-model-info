@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Collection;
 use Spatie\ModelInfo\Attributes\AttributeFinder;
+use Spatie\ModelInfo\Tests\TestSupport\Models\ExtendedTypesModel;
 use Spatie\ModelInfo\Tests\TestSupport\Models\TestModel;
 
 use function Spatie\Snapshots\assertMatchesSnapshot;
@@ -77,6 +78,14 @@ it('can handle virtual attributes of a model', function () {
         ->cast->toBe('attribute')
         ->not()->toBeNull()
         ->phpType->toBeNull();
+});
+
+it('can get extended column types for a model', function () {
+    $attributes = AttributeFinder::forModel(new ExtendedTypesModel());
+
+    expect($attributes)->toHaveCount(6);
+
+    matchesAttributesSnapshot($attributes);
 });
 
 function matchesAttributesSnapshot(Collection $attributes)

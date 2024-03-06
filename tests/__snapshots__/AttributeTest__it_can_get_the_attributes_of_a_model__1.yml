@@ -1,6 +1,6 @@
 -
     name: id
-    phpType: integer
+    phpType: int
     type: integer
     increments: true
     nullable: false
@@ -14,7 +14,7 @@
     hidden: false
 -
     name: name
-    phpType: varchar
+    phpType: string
     type: varchar
     increments: false
     nullable: false
@@ -28,7 +28,7 @@
     hidden: false
 -
     name: password
-    phpType: varchar
+    phpType: string
     type: varchar
     increments: false
     nullable: false
@@ -42,7 +42,7 @@
     hidden: true
 -
     name: created_at
-    phpType: datetime
+    phpType: DateTime
     type: datetime
     increments: false
     nullable: true
@@ -56,7 +56,7 @@
     hidden: false
 -
     name: updated_at
-    phpType: datetime
+    phpType: DateTime
     type: datetime
     increments: false
     nullable: true

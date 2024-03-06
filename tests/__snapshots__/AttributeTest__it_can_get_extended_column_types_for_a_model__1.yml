@@ -15,7 +15,7 @@
 -
     name: name
     phpType: string
-    type: string
+    type: varchar
     increments: false
     nullable: false
     default: null
@@ -29,7 +29,7 @@
 -
     name: enum
     phpType: string
-    type: string
+    type: varchar
     increments: false
     nullable: false
     default: null
@@ -43,7 +43,7 @@
 -
     name: multiPolygon
     phpType: string
-    type: string
+    type: geometry
     increments: false
     nullable: false
     default: null
@@ -57,7 +57,7 @@
 -
     name: point
     phpType: string
-    type: string
+    type: geometry
     increments: false
     nullable: false
     default: null
@@ -71,7 +71,7 @@
 -
     name: time
     phpType: DateTime
-    type: datetime
+    type: time
     increments: false
     nullable: false
     default: null

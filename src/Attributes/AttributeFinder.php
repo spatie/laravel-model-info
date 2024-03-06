@@ -3,22 +3,15 @@
 namespace Spatie\ModelInfo\Attributes;
 
 use BackedEnum;
-use Doctrine\DBAL\Schema\Column;
-use Doctrine\DBAL\Schema\Index;
-use Doctrine\DBAL\Types\DecimalType;
-use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use ReflectionClass;
 use ReflectionMethod;
-use Spatie\ModelInfo\Util\RegistersAdditionalTypeMappings;
 use UnitEnum;
 
 class AttributeFinder
 {
-    use RegistersAdditionalTypeMappings;
-
     /**
      * @param  class-string<Model>|Model  $model
      * @return \Illuminate\Support\Collection<Attribute>
@@ -38,9 +31,7 @@ class AttributeFinder
     protected function attributes(Model $model): Collection
     {
         $schema = $model->getConnection()->getSchemaBuilder();
-        $table = $model->getConnection()->getTablePrefix().$model->getTable();
-
-        // static::registerTypeMappings($schema->getDatabasePlatform());
+        $table = $model->getTable();
 
         $columns = $schema->getColumns($table);
         $indexes = $schema->getIndexes($table);
@@ -52,11 +43,11 @@ class AttributeFinder
 
                 return new Attribute(
                     name: $column['name'],
-                    phpType: $column['type'],
-                    type: $column['type_name'],
+                    phpType: $this->getPhpType($column),
+                    type: $column['type'],
                     increments: $column['auto_increment'],
                     nullable: $column['nullable'],
-                    default: $column['default'],
+                    default: $this->getColumnDefault($column, $model),
                     primary: $columnIndexes->contains(fn (array $index) => $index['primary']),
                     unique: $columnIndexes->contains(fn (array $index) => $index['unique']),
                     fillable: $model->isFillable($column['name']),
@@ -69,62 +60,58 @@ class AttributeFinder
             ->merge($this->getVirtualAttributes($model, $columns));
     }
 
-    protected function getColumnType(Column $column): string
+    protected function getPhpType(array $column): string
     {
-        $name = $column->getType()->getName();
-
-        $unsigned = $column->getUnsigned() ? ' unsigned' : '';
-
-        $details = match (get_class($column->getType())) {
-            DecimalType::class => $column->getPrecision().','.$column->getScale(),
-            default => $column->getLength(),
+        $type = match ($column['type']) {
+            'tinyint(1)', 'bit' => 'bool',
+            default => null,
         };
 
-        if ($details) {
-            return "{$name}({$details}){$unsigned}";
-        }
-
-        return "{$name}{$unsigned}";
-    }
-
-    /**
-     * Returns php type name as a string
-     * Mappings are defined based on this doctrine documentation:
-     *
-     * @link https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/types.html#detection-of-database-types
-     */
-    protected function getPhpType(Column $column): string
-    {
-        $name = $column->getType()->getName();
-
-        return match ($name) {
-            'string', 'ascii_string', 'bigint', 'decimal', 'text', 'guid' => 'string',
-            'integer', 'smallint' => 'int',
-            'float' => 'float',
-            'binary', 'blob' => 'resource',
-            'boolean' => 'bool',
-            'date', 'datetime', 'datetimetz', 'time' => 'DateTime',
-            'array' => 'array',
-            'json' => 'mixed',
-            'object' => 'object',
-            default => throw new Exception("Unknown type: $name. Mappings were defined from the Doctrine DBAL documentation at: https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/types.html#detection-of-database-types. Double check everything."),
+        $type ??= match ($column['type_name']) {
+            'tinyint', 'integer', 'int', 'int4', 'smallint', 'int2', 'mediumint' => 'int',
+            'float', 'real', 'float4', 'double', 'float8' => 'float',
+            'binary', 'varbinary', 'bytea', 'image', 'blob', 'tinyblob', 'mediumblob', 'longblob' => 'resource',
+            'boolean', 'bool' => 'bool',
+            'date', 'time', 'timetz', 'datetime', 'datetime2', 'smalldatetime', 'datetimeoffset', 'timestamp', 'timestamptz' => 'DateTime',
+            'json', 'jsonb' => 'mixed',
+            // 'char', 'bpchar', 'nchar',
+            // 'varchar', 'nvarchar',
+            // 'text', 'tinytext', 'longtext', 'mediumtext', 'ntext',
+            // 'bigint', 'int8',
+            // 'decimal', 'numeric',
+            // 'money', 'smallmoney',
+            // 'uuid', 'uniqueidentifier',
+            // 'enum',
+            // 'set',
+            // 'inet', 'inet4', 'inet6', 'cidr', 'macaddr', 'macaddr8',
+            // 'xml',
+            // 'bit', 'varbit',
+            // 'year',
+            // 'interval',
+            // 'geometry', 'geometrycollection', 'linestring', 'multilinestring', 'multipoint', 'multipolygon', 'point', 'polygon',
+            // 'box', 'circle', 'line', 'lseg', 'path',
+            // 'geography',
+            // 'tsvector', 'tsquery' => 'string',
+            default => null,
         };
+
+        return $type ?? 'string';
     }
 
-    protected function getColumnDefault(Column $column, Model $model): mixed
+    protected function getColumnDefault(array $column, Model $model): mixed
     {
-        $attributeDefault = $model->getAttributes()[$column->getName()] ?? null;
+        $attributeDefault = $model->getAttributes()[$column['name']] ?? null;
 
         return match (true) {
             $attributeDefault instanceof BackedEnum => $attributeDefault->value,
             $attributeDefault instanceof UnitEnum => $attributeDefault->name,
-            default => $attributeDefault ?? $column->getDefault(),
+            default => $attributeDefault ?? $column['default'],
         };
     }
 
     /**
-     * @param  Index[]  $indexes
-     * @return Collection<int, Index>
+     * @param  array $indexes
+     * @return Collection<int, array>
      */
     protected function getIndexes(string $column, array $indexes)
     {
@@ -168,7 +155,7 @@ class AttributeFinder
     }
 
     /**
-     * @param  array<Column>  $columns
+     * @param  array  $columns
      * @return Collection<Attribute>
      */
     protected function getVirtualAttributes(Model $model, array $columns): Collection

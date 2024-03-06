@@ -9,12 +9,9 @@ use Spatie\ModelInfo\Attributes\Attribute;
 use Spatie\ModelInfo\Attributes\AttributeFinder;
 use Spatie\ModelInfo\Relations\Relation;
 use Spatie\ModelInfo\Relations\RelationFinder;
-use Spatie\ModelInfo\Util\RegistersAdditionalTypeMappings;
 
 class ModelInfo
 {
-    use RegistersAdditionalTypeMappings;
-
     /**
      * @return Collection<ModelInfo>
      */
