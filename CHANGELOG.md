@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-model-info` will be documented in this file.
 
+## 2.0.1 - 2024-03-07
+
+### What's Changed
+
+* Remove Doctrine DBAL by @hafezdivandari in https://github.com/spatie/laravel-model-info/pull/36
+
+### New Contributors
+
+* @hafezdivandari made their first contribution in https://github.com/spatie/laravel-model-info/pull/36
+
+**Full Changelog**: https://github.com/spatie/laravel-model-info/compare/2.0.0...2.0.1
+
 ## 2.0.0 - 2024-03-04
 
 ### What's Changed
