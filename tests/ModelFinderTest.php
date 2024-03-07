@@ -3,6 +3,7 @@
 namespace Spatie\ModelInfo\Tests;
 
 use Spatie\ModelInfo\ModelFinder;
+use Spatie\ModelInfo\Tests\TestSupport\Models\ExtendedTypesModel;
 use Spatie\ModelInfo\Tests\TestSupport\Models\ExtraModelInfoModel;
 use Spatie\ModelInfo\Tests\TestSupport\Models\Nested\Model\NestedModel;
 use Spatie\ModelInfo\Tests\TestSupport\Models\RelationTestModel;
@@ -16,7 +17,7 @@ it('can discover all models in a directory', function () {
         "Spatie\ModelInfo\Tests",
     );
 
-    expect($models)->toHaveCount(5);
+    expect($models)->toHaveCount(6);
 
     expect($models->toArray())->toEqualCanonicalizing([
         NestedModel::class,
@@ -24,5 +25,6 @@ it('can discover all models in a directory', function () {
         RelationTestModel::class,
         TestModel::class,
         TraitTestModel::class,
+        ExtendedTypesModel::class,
     ]);
 });

@@ -34,14 +34,15 @@ class TestCase extends Orchestra
             $table->enum('enum', ['value1', 'value2']);
             if (method_exists($table, 'multiPolygon')) {
                 $table->multiPolygon('multiPolygon');
+            } else {
+                $table->geometry('multiPolygon', 'multiPolygon');
             }
             if (method_exists($table, 'point')) {
                 $table->point('point');
+            } else {
+                $table->geometry('point', 'point');
             }
-
-            if (method_exists($table, 'time')) {
-                $table->uuid('time');
-            }
+            $table->time('time');
         });
     }
 
