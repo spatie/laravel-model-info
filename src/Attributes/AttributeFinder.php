@@ -110,7 +110,6 @@ class AttributeFinder
     }
 
     /**
-     * @param  array $indexes
      * @return Collection<int, array>
      */
     protected function getIndexes(string $column, array $indexes)
@@ -155,7 +154,6 @@ class AttributeFinder
     }
 
     /**
-     * @param  array  $columns
      * @return Collection<Attribute>
      */
     protected function getVirtualAttributes(Model $model, array $columns): Collection
