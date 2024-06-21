@@ -3,6 +3,8 @@
 namespace Spatie\ModelInfo\Attributes;
 
 use BackedEnum;
+use DateTimeInterface;
+use Illuminate\Database\Eloquent\Casts\AsStringable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -40,10 +42,11 @@ class AttributeFinder
             ->values()
             ->map(function (array $column) use ($model, $indexes) {
                 $columnIndexes = $this->getIndexes($column['name'], $indexes);
+                $cast = $this->getCastType($column['name'], $model);
 
                 return new Attribute(
                     name: $column['name'],
-                    phpType: $this->getPhpType($column),
+                    phpType: $this->getPhpType($cast, $column),
                     type: $column['type'],
                     increments: $column['auto_increment'],
                     nullable: $column['nullable'],
@@ -52,7 +55,7 @@ class AttributeFinder
                     unique: $columnIndexes->contains(fn (array $index) => $index['unique']),
                     fillable: $model->isFillable($column['name']),
                     appended: null,
-                    cast: $this->getCastType($column['name'], $model),
+                    cast: $cast,
                     virtual: false,
                     hidden: $this->attributeIsHidden($column['name'], $model)
                 );
@@ -60,7 +63,44 @@ class AttributeFinder
             ->merge($this->getVirtualAttributes($model, $columns));
     }
 
-    protected function getPhpType(array $column): string
+    protected function getPhpType(?string $cast, array $column): string
+    {
+        $type = $this->getPhpTypeFromCast($cast);
+
+        $type ??= $this->getPhpTypeFromColumn($column);
+
+        return $type;
+    }
+
+    protected function getPhpTypeFromCast(?string $cast): ?string
+    {
+        $castFirstPart = explode(':', $cast)[0];
+
+        $type = match ($castFirstPart) {
+            'array' => 'array',
+            'boolean' => 'bool',
+            'float', 'decimal', 'double', 'real' => 'float',
+            'integer' => 'int',
+            'object' => 'object',
+            'AsStringable' => '\\'.AsStringable::class,
+            'collection', 'AsEnumCollection' => '\\'.Collection::class,
+            'date', 'datetime', 'timestamp', 'immutable_date', 'immutable_datetime' => '\\'.DateTimeInterface::class,
+            default => null,
+        };
+
+        $type ??= match ($cast) {
+            'encrypted:array' => 'array',
+            'encrypted:collection', 'AsEncryptedCollection' => '\\'.Collection::class,
+            'encrypted:object', 'AsEncryptedArrayObject' => 'object',
+            default => null,
+        };
+
+        $type ??= enum_exists($cast) ? '\\'.$cast : null;
+
+        return $type;
+    }
+
+    protected function getPhpTypeFromColumn(array $column): string
     {
         $type = match ($column['type']) {
             'tinyint(1)', 'bit' => 'bool',
@@ -72,7 +112,7 @@ class AttributeFinder
             'float', 'real', 'float4', 'double', 'float8' => 'float',
             'binary', 'varbinary', 'bytea', 'image', 'blob', 'tinyblob', 'mediumblob', 'longblob' => 'resource',
             'boolean', 'bool' => 'bool',
-            'date', 'time', 'timetz', 'datetime', 'datetime2', 'smalldatetime', 'datetimeoffset', 'timestamp', 'timestamptz' => 'DateTime',
+            'date', 'time', 'timetz', 'datetime', 'datetime2', 'smalldatetime', 'datetimeoffset', 'timestamp', 'timestamptz' => '\\'.DateTimeInterface::class,
             'json', 'jsonb' => 'mixed',
             // 'char', 'bpchar', 'nchar',
             // 'varchar', 'nvarchar',
