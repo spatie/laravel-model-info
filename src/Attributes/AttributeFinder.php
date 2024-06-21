@@ -68,7 +68,7 @@ class AttributeFinder
         };
 
         $type ??= match ($column['type_name']) {
-            'tinyint', 'integer', 'int', 'int4', 'smallint', 'int2', 'mediumint' => 'int',
+            'tinyint', 'integer', 'int', 'int4', 'smallint', 'int2', 'mediumint', 'bigint', 'int8' => 'int',
             'float', 'real', 'float4', 'double', 'float8' => 'float',
             'binary', 'varbinary', 'bytea', 'image', 'blob', 'tinyblob', 'mediumblob', 'longblob' => 'resource',
             'boolean', 'bool' => 'bool',
@@ -77,7 +77,6 @@ class AttributeFinder
             // 'char', 'bpchar', 'nchar',
             // 'varchar', 'nvarchar',
             // 'text', 'tinytext', 'longtext', 'mediumtext', 'ntext',
-            // 'bigint', 'int8',
             // 'decimal', 'numeric',
             // 'money', 'smallmoney',
             // 'uuid', 'uniqueidentifier',

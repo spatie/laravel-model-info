@@ -41,6 +41,20 @@
     virtual: false
     hidden: true
 -
+    name: bigInteger
+    phpType: int
+    type: integer
+    increments: false
+    nullable: false
+    default: null
+    primary: false
+    unique: false
+    fillable: false
+    appended: null
+    cast: null
+    virtual: false
+    hidden: false
+-
     name: created_at
     phpType: DateTime
     type: datetime
