@@ -23,8 +23,7 @@ class Attribute implements Arrayable
         public ?string $cast,
         public bool $virtual,
         public bool $hidden,
-    ) {
-    }
+    ) {}
 
     /**
      * @return array<string, mixed>

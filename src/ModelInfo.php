@@ -60,8 +60,7 @@ class ModelInfo
         public Collection $attributes,
         public Collection $traits,
         public mixed $extra = null,
-    ) {
-    }
+    ) {}
 
     protected static function getExtraModelInfo(Model $model): mixed
     {
