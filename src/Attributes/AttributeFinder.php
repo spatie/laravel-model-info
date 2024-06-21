@@ -74,6 +74,10 @@ class AttributeFinder
 
     protected function getPhpTypeFromCast(?string $cast): ?string
     {
+        if (! $cast) {
+            return null;
+        }
+
         $castFirstPart = explode(':', $cast)[0];
 
         $type = match ($castFirstPart) {
