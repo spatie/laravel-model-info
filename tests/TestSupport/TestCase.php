@@ -19,6 +19,7 @@ class TestCase extends Orchestra
             $table->id();
             $table->string('name');
             $table->string('password');
+            $table->bigInteger('bigInteger');
             $table->timestamps();
         });
 
