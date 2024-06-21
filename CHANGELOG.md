@@ -2,6 +2,19 @@
 
 All notable changes to `laravel-model-info` will be documented in this file.
 
+## 2.0.2 - 2024-06-21
+
+### What's Changed
+
+* Bump aglipanci/laravel-pint-action from 2.3.1 to 2.4 by @dependabot in https://github.com/spatie/laravel-model-info/pull/38
+* Fix phpType Handling for Big Integer Columns by @clementbirkle in https://github.com/spatie/laravel-model-info/pull/41
+
+### New Contributors
+
+* @clementbirkle made their first contribution in https://github.com/spatie/laravel-model-info/pull/41
+
+**Full Changelog**: https://github.com/spatie/laravel-model-info/compare/2.0.1...2.0.2
+
 ## 2.0.1 - 2024-03-07
 
 ### What's Changed
