@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Collection;
 use Spatie\ModelInfo\Attributes\AttributeFinder;
+use Spatie\ModelInfo\Tests\TestSupport\Enums\TestEnum;
 use Spatie\ModelInfo\Tests\TestSupport\Models\ExtendedTypesModel;
+use Spatie\ModelInfo\Tests\TestSupport\Models\PhpTypeFromCastModel;
 use Spatie\ModelInfo\Tests\TestSupport\Models\TestModel;
 
 use function Spatie\Snapshots\assertMatchesSnapshot;
@@ -86,6 +88,17 @@ it('can get extended column types for a model', function () {
     expect($attributes)->toHaveCount(6);
 
     matchesAttributesSnapshot($attributes);
+});
+
+it('retrieves phpType attribute from cast and falls back to column type', function () {
+    $attributes = AttributeFinder::forModel(new PhpTypeFromCastModel());
+
+    expect($attributes->pluck('phpType')->toArray())->toBe([
+        'array',
+        '\\'.Collection::class,
+        '\\'.TestEnum::class,
+        'int',
+    ]);
 });
 
 function matchesAttributesSnapshot(Collection $attributes)

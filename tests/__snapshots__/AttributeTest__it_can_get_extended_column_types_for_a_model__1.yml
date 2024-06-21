@@ -70,7 +70,7 @@
     hidden: false
 -
     name: time
-    phpType: DateTime
+    phpType: \DateTimeInterface
     type: time
     increments: false
     nullable: false
