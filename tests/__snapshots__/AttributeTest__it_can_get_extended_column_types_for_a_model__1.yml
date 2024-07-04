@@ -70,7 +70,7 @@
     hidden: false
 -
     name: time
-    phpType: \DateTimeInterface
+    phpType: \Carbon\CarbonInterface
     type: time
     increments: false
     nullable: false

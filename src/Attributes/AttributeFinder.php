@@ -3,7 +3,7 @@
 namespace Spatie\ModelInfo\Attributes;
 
 use BackedEnum;
-use DateTimeInterface;
+use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Casts\AsStringable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -88,7 +88,7 @@ class AttributeFinder
             'object' => 'object',
             'AsStringable' => '\\'.AsStringable::class,
             'collection', 'AsEnumCollection' => '\\'.Collection::class,
-            'date', 'datetime', 'timestamp', 'immutable_date', 'immutable_datetime' => '\\'.DateTimeInterface::class,
+            'date', 'datetime', 'timestamp', 'immutable_date', 'immutable_datetime' => '\\'.CarbonInterface::class,
             default => null,
         };
 
@@ -116,7 +116,7 @@ class AttributeFinder
             'float', 'real', 'float4', 'double', 'float8' => 'float',
             'binary', 'varbinary', 'bytea', 'image', 'blob', 'tinyblob', 'mediumblob', 'longblob' => 'resource',
             'boolean', 'bool' => 'bool',
-            'date', 'time', 'timetz', 'datetime', 'datetime2', 'smalldatetime', 'datetimeoffset', 'timestamp', 'timestamptz' => '\\'.DateTimeInterface::class,
+            'date', 'time', 'timetz', 'datetime', 'datetime2', 'smalldatetime', 'datetimeoffset', 'timestamp', 'timestamptz' => '\\'.CarbonInterface::class,
             'json', 'jsonb' => 'mixed',
             // 'char', 'bpchar', 'nchar',
             // 'varchar', 'nvarchar',
