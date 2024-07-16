@@ -45,6 +45,13 @@ class TestCase extends Orchestra
             }
             $table->time('time');
         });
+
+        Schema::create('php_type_from_cast_models', function (Blueprint $table) {
+            $table->longText('array');
+            $table->longText('encryptedCollection');
+            $table->string('enum');
+            $table->integer('integer');
+        });
     }
 
     public function getTestSupportDirectory(string $suffix = ''): string
