@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-model-info` will be documented in this file.
 
+## 2.0.3 - 2024-07-16
+
+### What's Changed
+
+* Retrieve phpType Attribute from Cast, Fallback to Column Type by @clementbirkle in https://github.com/spatie/laravel-model-info/pull/42
+
+**Full Changelog**: https://github.com/spatie/laravel-model-info/compare/2.0.2...2.0.3
+
 ## 2.0.2 - 2024-06-21
 
 ### What's Changed
