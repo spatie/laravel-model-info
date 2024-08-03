@@ -70,6 +70,9 @@ class ModelFinder
             if ($file->isDir()) {
                 continue;
             }
+            if ($file->getExtension() !== 'php') {
+                continue;
+            }
             $files[] = $file->getPathname();
         }
 
