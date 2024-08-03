@@ -46,6 +46,9 @@ class ModelFinder
         string $basePath,
         string $baseNamespace
     ): string {
+
+        $_app = ($baseNamespace != '') ? '' : app()->getNamespace();
+
         return Str::of($file->getRealPath())
             ->replaceFirst($basePath, '')
             ->replaceLast('.php', '')
@@ -53,7 +56,7 @@ class ModelFinder
             ->ucfirst()
             ->replace(
                 [DIRECTORY_SEPARATOR, 'App\\'],
-                ['\\', app()->getNamespace()],
+                ['\\', $_app],
             )
             ->prepend($baseNamespace.'\\');
     }
