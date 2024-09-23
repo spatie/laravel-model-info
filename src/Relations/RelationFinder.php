@@ -23,7 +23,7 @@ class RelationFinder
             $model = new $model;
         }
 
-        return (new self())->relations($model);
+        return (new self)->relations($model);
     }
 
     /**

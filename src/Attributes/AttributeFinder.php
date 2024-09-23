@@ -24,7 +24,7 @@ class AttributeFinder
             $model = new $model;
         }
 
-        return (new self())->attributes($model);
+        return (new self)->attributes($model);
     }
 
     /**
