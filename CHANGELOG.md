@@ -2,6 +2,17 @@
 
 All notable changes to `laravel-model-info` will be documented in this file.
 
+## 2.0.4 - 2025-02-21
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 1.6.0 to 2.2.0 by @dependabot in https://github.com/spatie/laravel-model-info/pull/43
+* Bump dependabot/fetch-metadata from 2.2.0 to 2.3.0 by @dependabot in https://github.com/spatie/laravel-model-info/pull/45
+* Bump aglipanci/laravel-pint-action from 2.4 to 2.5 by @dependabot in https://github.com/spatie/laravel-model-info/pull/46
+* Laravel 12.x Compatibility by @laravel-shift in https://github.com/spatie/laravel-model-info/pull/47
+
+**Full Changelog**: https://github.com/spatie/laravel-model-info/compare/2.0.3...2.0.4
+
 ## 2.0.3 - 2024-07-16
 
 ### What's Changed
