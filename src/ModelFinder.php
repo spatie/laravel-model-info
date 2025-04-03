@@ -24,7 +24,14 @@ class ModelFinder
         $basePath ??= base_path();
         $baseNamespace ??= '';
 
-        return collect(static::getFilesRecursively($directory))
+        $files = static::getFilesRecursively($directory);
+        
+        // include Modules folder to compatibility with nwidart/laravel-modules at same call
+        if (is_dir(base_path() . '/Modules')) {
+            $files = array_merge($files, static::getFilesRecursively(base_path() . '/Modules'));
+        }
+
+        return collect($files)
             ->map(fn (string $class) => new SplFileInfo($class))
             ->map(fn (SplFileInfo $file) => self::fullQualifiedClassNameFromFile($file, $basePath, $baseNamespace))
             ->map(function (string $class) {
@@ -52,8 +59,8 @@ class ModelFinder
             ->trim(DIRECTORY_SEPARATOR)
             ->ucfirst()
             ->replace(
-                [DIRECTORY_SEPARATOR, 'App\\'],
-                ['\\', app()->getNamespace()],
+                [DIRECTORY_SEPARATOR, 'App\\',  'app\\'],       //replace 'app\\' by '' to compatibility with nwidart/laravel-modules
+                ['\\', app()->getNamespace(), ''],
             )
             ->prepend($baseNamespace.'\\');
     }
@@ -65,6 +72,10 @@ class ModelFinder
 
         foreach ($rii as $file) {
             if ($file->isDir()) {
+                continue;
+            }
+            // Check if the file is a PHP file, reducing the number of files to check
+            if ($file->getExtension() !== 'php') {
                 continue;
             }
             $files[] = $file->getPathname();
