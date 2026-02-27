@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-model-info` will be documented in this file.
 
+## 2.0.5 - 2026-02-27
+
+Add Laravel 13 support
+
 ## 2.0.4 - 2025-02-21
 
 ### What's Changed
