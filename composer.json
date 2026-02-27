@@ -17,15 +17,15 @@
     ],
     "require": {
         "php": "^8.2",
-        "illuminate/database": "^11.0|^12.0",
+        "illuminate/database": "^11.0|^12.0|^13.0",
         "spatie/laravel-package-tools": "^1.13.0"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
         "nunomaduro/collision": "^8.0",
-        "orchestra/testbench": "^9.0|^10.0",
-        "pestphp/pest": "^2.34|^3.7",
-        "pestphp/pest-plugin-laravel": "^2.3|^3.1",
+        "orchestra/testbench": "^9.0|^10.0|^11.0",
+        "pestphp/pest": "^2.34|^3.7|^4.4",
+        "pestphp/pest-plugin-laravel": "^2.3|^3.1|^4.1",
         "spatie/pest-plugin-snapshots": "^2.1",
         "symfony/serializer": "^6.0|^7.0|^8.0"
     },
