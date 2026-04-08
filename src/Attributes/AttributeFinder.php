@@ -16,7 +16,7 @@ class AttributeFinder
 {
     /**
      * @param  class-string<Model>|Model  $model
-     * @return \Illuminate\Support\Collection<Attribute>
+     * @return Collection<Attribute>
      */
     public static function forModel(string|Model $model): Collection
     {
@@ -28,7 +28,7 @@ class AttributeFinder
     }
 
     /**
-     * @return \Illuminate\Support\Collection<Attribute>
+     * @return Collection<Attribute>
      */
     protected function attributes(Model $model): Collection
     {

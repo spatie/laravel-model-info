@@ -3,6 +3,7 @@
 namespace Spatie\ModelInfo\Relations;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Relation as IlluminateRelation;
 use Illuminate\Support\Collection;
 use ReflectionClass;
@@ -36,7 +37,7 @@ class RelationFinder
         return collect($class->getMethods())
             ->filter(fn (ReflectionMethod $method) => $this->hasRelationReturnType($method))
             ->map(function (ReflectionMethod $method) use ($model) {
-                /** @var \Illuminate\Database\Eloquent\Relations\BelongsTo $relation */
+                /** @var BelongsTo $relation */
                 $relation = $method->invoke($model);
 
                 return new Relation(
