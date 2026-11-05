@@ -7,6 +7,8 @@ use Spatie\ModelInfo\Tests\TestSupport\Models\ExtraModelInfoModel;
 use Spatie\ModelInfo\Tests\TestSupport\Models\RelationTestModel;
 use Spatie\ModelInfo\Tests\TestSupport\Models\TraitTestModel;
 use Spatie\ModelInfo\Tests\TestSupport\Traits\TestTrait;
+use Spatie\Snapshots\Drivers\ObjectDriver;
+use Symfony\Component\Yaml\Yaml;
 
 it('can get meta information about a model', function () {
     $modelInfo = ModelInfo::forModel(RelationTestModel::class);
@@ -15,7 +17,10 @@ it('can get meta information about a model', function () {
 
     $modelInfo['fileName'] = str_replace($this->getTestDirectory(), '', $modelInfo['fileName']);
 
-    $this->assertMatchesSnapshot($modelInfo);
+    $this->assertSame(
+        Yaml::parseFile(__DIR__.'/__snapshots__/ModelInfoTest__it_can_get_meta_information_about_a_model__1.yml'),
+        Yaml::parse((new ObjectDriver)->serialize($modelInfo)),
+    );
 });
 
 it('can get meta information about all models', function () {
